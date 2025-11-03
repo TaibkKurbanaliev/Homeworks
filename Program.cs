@@ -125,7 +125,7 @@ namespace Homework2
 
             while (true)
             {
-                Console.Write("Выберите приоритет(Low, Med, High) - ");
+                Console.Write("Выберите приоритет(Low, Medium, High) - ");
                 if (Enum.TryParse<Priority>(Console.ReadLine(), true, out var result))
                 {
                     priority = result;
