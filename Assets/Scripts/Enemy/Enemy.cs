@@ -10,8 +10,6 @@ public class Enemy : MonoBehaviour
     private IMoveStrategy _moveStrategy;
     private bool _isPaused = false;
 
-    [field: SerializeField] public EnemyConfig Cfg;
-
     public void Init()
     {
         _enemyView = new EntityView(_animator);
@@ -44,6 +42,14 @@ public class Enemy : MonoBehaviour
         }
 
         _moveStrategy.Move();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.TryGetComponent(out Player player))
+        {
+            player.TakeDamage();
+        }
     }
 
     public void SetMoveStrategy(IMoveStrategy moveStrategy)

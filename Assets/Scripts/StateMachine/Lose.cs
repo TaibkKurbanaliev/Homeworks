@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class Win : IState
+public class Lose : IState
 {
     public void Enter()
     {
-        EventBus.Instance.TriggerEvent(new GameWinEvent("Game Win!!!"));
+        EventBus.Instance.TriggerEvent(new GameLoseEvent("You Lose!!!"));
     }
 
     public void Exit()

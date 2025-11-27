@@ -11,6 +11,7 @@ public class Init : IState
 
     public void Enter()
     {
+        EventBus.Instance.TriggerEvent(new GameInitEvent("Game is inited!"));
     }
 
     public void Exit()

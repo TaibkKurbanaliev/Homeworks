@@ -18,6 +18,7 @@ public class GameStateService : IDisposable
         _stateMachine.AddState(new Playing(_stateMachine, this));
         _stateMachine.AddState(new Pause(_stateMachine));
         _stateMachine.AddState(new Win());
+        _stateMachine.AddState(new Lose());
         _stateMachine.SwitchState<Init>();
     }
 

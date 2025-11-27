@@ -11,12 +11,14 @@ public class Player : MonoBehaviour
 
     private Vector2 _moveInput;
     private bool _isPaused = false;
+    private int _health = 3;
 
-    public void Init(PlayerInputActions input, float moveSpeed)
+    public void Init(PlayerInputActions input, float moveSpeed, int health)
     {
         _input = input;
         _movement = new PlayerMovement(_rigidbody, moveSpeed);
         _playerView = new EntityView(_animator);
+        _health = health;
     }
 
     private void OnEnable()
@@ -46,6 +48,15 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {       
         _movement.Move(_moveInput);
+    }
+    
+    public void TakeDamage()
+    {
+        if (_health <= 0)
+            return;
+
+        _health--;
+        EventBus.Instance.TriggerEvent(new PlayerDamaged("Player take damage!", _health));
     }
 
     private void HandleEvent(IEvent @event)

@@ -13,6 +13,7 @@ public class Playing : IState
 
     public void Enter()
     {
+        EventBus.Instance.TriggerEvent(new GamePlayingEvent("Game is Playing"));
         EventBus.Instance.OnGameEvent += HandleEvent;
     }
 
@@ -36,6 +37,10 @@ public class Playing : IState
             case ItemPickedEvent item:
                 _service.AddScore(item.Score);
                 EventBus.Instance.TriggerEvent(new ScoreChanged(_service.CurrentScore, "Score was changed!!!"));
+                break;
+            case PlayerDamaged player:
+                if (player.RemainingLives == 0)
+                    _stateSwitcher.SwitchState<Lose>();
                 break;
         }
     }

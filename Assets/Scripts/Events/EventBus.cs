@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -22,5 +23,10 @@ public class EventBus
     {
         _events.Add(@event);
         OnGameEvent?.Invoke(@event);
+    }
+
+    public int GetNumberOfEvents<T>()
+    {
+        return _events.Count(ev => ev is T);
     }
 }

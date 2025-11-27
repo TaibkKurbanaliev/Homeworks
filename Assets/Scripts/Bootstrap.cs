@@ -9,6 +9,7 @@ public class Bootstrap : MonoBehaviour
     [SerializeField] private List<Transform> _spawnPoints;
     [SerializeField] private Enemy _enemyPrefab;
     [SerializeField] private UIManager _uIManager;
+    [SerializeField] private List<EnemyConfig> _configs;
 
     private PlayerInputActions _input;
     private GameStateService _stateService;
@@ -21,8 +22,8 @@ public class Bootstrap : MonoBehaviour
 
         _stateService = new GameStateService(_gameConfig.TargetScore);
         _uIManager.Init(_stateService);
-        _spawnService = new(_gameConfig.SpawnFrequencyInMiliseconds, _enemyPrefab, _spawnPoints, _player);
-        _player.Init(_input, _gameConfig.PlayerSpeed);
+        _spawnService = new(_gameConfig.SpawnFrequencyInMiliseconds, _enemyPrefab, _spawnPoints, _player, _configs);
+        _player.Init(_input, _gameConfig.PlayerSpeed, 3);
         _ = _spawnService.SpawnEnemyAsync(destroyCancellationToken);
     }
 
