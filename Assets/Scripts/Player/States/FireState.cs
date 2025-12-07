@@ -12,7 +12,7 @@ public abstract class FireState : MovementState
 
         if (Player.Input.Player.Attack.IsInProgress())
         {
-            Player.Weapon.Shoot();
+            Player.CurrentWeapon.Shoot();
         }    
     }
 }

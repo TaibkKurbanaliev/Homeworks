@@ -9,6 +9,7 @@ public abstract class MovementState : IState
     protected float Deceleration;
 
     private Vector3 _targetDir;
+    private float _deathPoint = -30f;
 
     public MovementState(Player player, IStateSwitcher switcher)
     {
@@ -37,7 +38,7 @@ public abstract class MovementState : IState
         Gravity();
         Move();
 
-        if (!Player.Health.IsAlive)
+        if (!Player.Health.IsAlive || Player.transform.position.y < _deathPoint)
             Switcher.SwitchState<DeathState>();
     }
 

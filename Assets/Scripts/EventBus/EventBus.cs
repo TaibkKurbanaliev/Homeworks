@@ -18,7 +18,8 @@ public class EventBus
     {
         if (_subscribers.ContainsKey(typeof(T)))
         {
-            foreach (var obj in _subscribers[typeof(T)])
+            var copySubscribers = new List<object>(_subscribers[typeof(T)]);
+            foreach (var obj in copySubscribers)
             {
                 var subscriber = obj as Action<T>;
                 subscriber?.Invoke(@event);

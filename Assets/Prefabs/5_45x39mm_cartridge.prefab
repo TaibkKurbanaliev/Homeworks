@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8064690888057866963}
   - component: {fileID: 2290493253719490441}
   - component: {fileID: 4572791062213940817}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: 5.45x39mm_spent.LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 838271275175968886}
   - component: {fileID: 6754899946796436847}
   - component: {fileID: 8374895987315667398}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: 5.45x39mm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 3701111030758901240}
   - component: {fileID: 6498854870801831761}
   - component: {fileID: 4655449968176804666}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: 5.45x39mm.LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 7609689725277680534}
   - component: {fileID: 4776233144069310557}
   - component: {fileID: 2160559434578348145}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: 5.45x39mm_spent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 3560699245592091013}
   - component: {fileID: 7753848533507727952}
   - component: {fileID: 4128629436705810564}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: 5.45x39mm_spent.LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -440,7 +440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4560474517052019916}
   - component: {fileID: 153527059122554957}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -589,7 +589,7 @@ GameObject:
   - component: {fileID: 7101497419049832080}
   - component: {fileID: 3572088743890722648}
   - component: {fileID: 7167068691616775408}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: 5.45x39mm.LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -676,7 +676,7 @@ GameObject:
   - component: {fileID: 6646061952227291133}
   - component: {fileID: 4877882613831045784}
   - component: {fileID: -1073991584613938843}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: 5_45x39mm_cartridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
