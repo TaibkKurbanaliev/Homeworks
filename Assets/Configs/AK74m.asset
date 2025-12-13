@@ -15,8 +15,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 21300000, guid: 367f29b26d6a9aa419a3c41a790e4ddb, type: 3}
   <FireSound>k__BackingField: {fileID: 8300000, guid: d06c03ed6f2fe2143aab0c61cec75db1, type: 3}
   <ReloadSound>k__BackingField: {fileID: 8300000, guid: e5198250a6a57408bb36e14bc4a322c4, type: 3}
-  <Damage>k__BackingField: 10
+  <Damage>k__BackingField: 15
   <ReloadTime>k__BackingField: 2
-  <Spread>k__BackingField: 0.1
+  <Spread>k__BackingField: 0.04
   <BulletsPerSecond>k__BackingField: 10
   <BulletStore>k__BackingField: 35

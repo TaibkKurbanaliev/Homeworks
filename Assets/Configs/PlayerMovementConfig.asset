@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 021a84a6c219fd04d9fd54d1a30c88dd, type: 3}
   m_Name: PlayerMovementConfig
   m_EditorClassIdentifier: 
-  <Health>k__BackingField: 100
+  <Health>k__BackingField: 500
   <WalkingConfig>k__BackingField:
     Speed: 3
     Acceleration: 10

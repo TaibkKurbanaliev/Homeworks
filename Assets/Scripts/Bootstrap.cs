@@ -10,6 +10,8 @@ public class Bootstrap : MonoBehaviour
 
     private void Awake()
     {
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;
         _input = new PlayerInputActions();
         _input.Enable();
         _player.Init(_input);

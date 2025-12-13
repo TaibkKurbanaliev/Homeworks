@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyDieState : IState
@@ -12,8 +13,7 @@ public class EnemyDieState : IState
     public void Enter()
     {
         _enemy.View.PlayDieAnim();
-        _enemy.Agent.enabled = false;
-        _enemy.Collider.enabled = false;
+        _enemy.View.OnEnemyDiedAnimEnded += OnDiedAnimEnded;
         EventBus.Instance.TriggerEvent(new EnemyDiedEvent("Died"));
     }
 
@@ -27,5 +27,12 @@ public class EnemyDieState : IState
 
     public void Update()
     {
+    }
+
+    private void OnDiedAnimEnded()
+    {
+        _enemy.Agent.enabled = true;
+        _enemy.Collider.enabled = true;
+        _enemy.gameObject.SetActive(false);
     }
 }

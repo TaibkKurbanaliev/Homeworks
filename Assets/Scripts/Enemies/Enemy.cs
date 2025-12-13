@@ -26,6 +26,13 @@ public class Enemy : MonoBehaviour, IDamagable
         _stateMachine.SwitchState<EnemyMoveState>();
     }
 
+    public void Respawn(Vector3 spawnPoint)
+    {
+        Health.Init();
+        transform.position = spawnPoint;
+        _stateMachine.SwitchState<EnemyMoveState>();
+    }
+
     private void Update() => _stateMachine.Update();
     private void FixedUpdate() => _stateMachine.FixedUpdate();
 

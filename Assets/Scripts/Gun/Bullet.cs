@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -9,12 +11,31 @@ public class Bullet : MonoBehaviour
     
     private Rigidbody _rb;
     private float _damage;
+    private WaitForSeconds _lifeTimeWaiter;
+    private CancellationTokenSource _cts;
 
     public void Init(float damage)
+    {        
+        _damage = damage;
+    }
+
+    private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _damage = damage;
-        Shoot();
+    }
+
+    private void OnEnable()
+    {
+        //_cts = new CancellationTokenSource();
+        _rb.linearVelocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
+        _lifeTimeWaiter = new WaitForSeconds(_lifeTime);
+        StartCoroutine(StartDestroy());
+    }
+
+    private void OnDisable()
+    {
+        //_cts.Cancel();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -22,7 +43,7 @@ public class Bullet : MonoBehaviour
         if (collision.collider.TryGetComponent(out Enemy enemy))
         {
             enemy.TakeDamage(_damage, collision.contacts[0].normal);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
@@ -32,9 +53,15 @@ public class Bullet : MonoBehaviour
         _ = StartDestroy();
     }
 
-    private async Task StartDestroy()
+    public IEnumerator StartDestroy()
     {
-        await Task.Delay((int)(_lifeTime * 1000));
-        Destroy(gameObject);
+        yield return _lifeTimeWaiter;
+        gameObject.SetActive(false);
     }
+
+    /*private async Task StartDestroy()
+    {
+        await Task.Delay((int)(_lifeTime * 1000), _cts.Token);
+        gameObject.SetActive(false);
+    }*/
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyView : MonoBehaviour
 {
     public event Action OnAttackAnimEnded;
+    public event Action OnEnemyDiedAnimEnded;
 
     [SerializeField] private ParticleSystem _bloodParticle;
 
@@ -42,5 +43,10 @@ public class EnemyView : MonoBehaviour
     {
         _bloodParticle.transform.rotation = Quaternion.LookRotation(hitNormal);
         _bloodParticle.Play();
+    }
+    
+    public void OnDiedAnimEnded(AnimationEvent evt)
+    {
+        OnEnemyDiedAnimEnded?.Invoke();
     }
 }
