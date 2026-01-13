@@ -11,6 +11,7 @@ public class GameInstaller : MonoBehaviour
         _actions = new InputSystem_Actions();
         _actions.Enable();
 
+        ILoggerService loggerService = new ConsoleLogger();
         IInputService input = new DefaultInputService(_actions);
         IMovementService movement = new RigidbodyMovement(_player.GetComponent<Rigidbody>());
         IHealth health = new Health(100f);
