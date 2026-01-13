@@ -13,8 +13,9 @@ public class GameInstaller : MonoBehaviour
 
         IInputService input = new DefaultInputService(_actions);
         IMovementService movement = new RigidbodyMovement(_player.GetComponent<Rigidbody>());
+        IHealth health = new Health(100f);
 
-        _player.Construct(input, movement);
+        _player.Construct(input, movement, health);
     }
 
     private void OnDisable()
