@@ -15,11 +15,13 @@ public class GameInstaller : MonoBehaviour
 {
     [SerializeField] private Player _player;
     [SerializeField] private TMP_Dropdown _inputTypes;
+    [SerializeField] private Transform _target;
 
     private InputSystem_Actions _actions;
     private ILoggerService _loggerService;
     private IInputService _input;
     private IMovementService _movement;
+    private IHealth _health;
 
     public void Awake()
     {
@@ -32,9 +34,10 @@ public class GameInstaller : MonoBehaviour
         _loggerService = new ConsoleLogger();
         _input = new DefaultInputService(_actions);
         _movement = new RigidbodyMovement(_player.GetComponent<Rigidbody>());
-        IHealth health = new Health(100f, _loggerService);
+        _health = new Health(100f, _loggerService);
 
-        _player.Construct(_input, _movement, health);
+        _player.Construct(_input, _movement, _health, _loggerService);
+
         _loggerService.Log("StartGame");
     }
 
@@ -45,6 +48,23 @@ public class GameInstaller : MonoBehaviour
 
     private void OnInputTypesValueChanged(int value)
     {
+        switch((InputType)value)
+        {
+            case InputType.Keyboard:
+                _input = new DefaultInputService(_actions);
+                break;
+            case InputType.AI:
+                _input = new AIInputService(_target, _player.transform);
+                break;
+            case InputType.FakeInput:
+                _input = new FakeInputService(Vector2.up);
+                break;
+            default:
+                throw new NotImplementedException();
+        }
+
+        _player.Construct(_input, _movement, _health, _loggerService);
+
         _loggerService.Log(_inputTypes.options[value].text);
     }
 }

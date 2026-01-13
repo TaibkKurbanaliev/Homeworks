@@ -23,7 +23,7 @@ public class Health : IHealth
             return;
 
         _currentHealth -= value;
-        _logger.Log("Take Damage");
+        _logger.Log("Take Damage. Current health - " + _currentHealth);
 
         if (IsDied())
             _logger.Log("Died");
@@ -35,6 +35,6 @@ public class Health : IHealth
             return;
 
         _currentHealth += value;
-        _logger.Log("Restore Health");
+        _logger.Log("Restore Health. Current health - " + _currentHealth);
     }
 }

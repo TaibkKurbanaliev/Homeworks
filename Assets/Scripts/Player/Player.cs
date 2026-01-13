@@ -5,12 +5,14 @@ public class Player : MonoBehaviour, IDamagable
     private IInputService _input;
     private IMovementService _movement;
     private IHealth _health;
+    private ILoggerService _logger;
 
-    public void Construct(IInputService inputService, IMovementService movement, IHealth health)
+    public void Construct(IInputService inputService, IMovementService movement, IHealth health, ILoggerService logger)
     {
         _input = inputService;
         _movement = movement;
         _health = health;
+        _logger = logger;
     }
 
     private void FixedUpdate()
@@ -21,7 +23,10 @@ public class Player : MonoBehaviour, IDamagable
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<Collectable>(out _))
+        {
+            _logger.Log("Item picked");
             Destroy(other.gameObject);
+        }
     }
 
     public void TakeDamage(float damage)
