@@ -15,7 +15,7 @@ public class DefaultInputService : IInputService
         return _actions.Player.Move.ReadValue<Vector2>();
     }
 
-    public bool WasActionPressed()
+    public bool IsActionPressed()
     {
         return _actions.Player.Interact.WasPressedThisFrame();
     }

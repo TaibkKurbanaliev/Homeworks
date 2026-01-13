@@ -2,19 +2,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private IInputService _inputService;
+    private IInputService _input;
+    private IMovementService _movement;
 
-    public void Construct(IInputService inputService)
+    public void Construct(IInputService inputService, IMovementService movement)
     {
-        _inputService = inputService;
+        _input = inputService;
+        _movement = movement;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (_inputService.GetMoveInput() != Vector2.zero)
-            Debug.Log(_inputService.GetMoveInput());
-
-        if (_inputService.WasActionPressed())
-            Debug.Log(_inputService.WasActionPressed());
+        _movement.Move(_input.GetMoveInput());
     }
 }

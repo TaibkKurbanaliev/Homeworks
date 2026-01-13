@@ -11,7 +11,10 @@ public class GameInstaller : MonoBehaviour
         _actions = new InputSystem_Actions();
         _actions.Enable();
 
-        _player.Construct(new DefaultInputService(_actions));
+        IInputService input = new DefaultInputService(_actions);
+        IMovementService movement = new RigidbodyMovement(_player.GetComponent<Rigidbody>());
+
+        _player.Construct(input, movement);
     }
 
     private void OnDisable()
