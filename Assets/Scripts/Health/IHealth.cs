@@ -4,6 +4,7 @@ using UnityEngine;
 public interface IHealth
 {
     event Action Died;
+    event Action<float> HealthChanged;
 
     void ReduceHealth(float value);
     void RestoreHealth(float value);

@@ -4,6 +4,7 @@ using UnityEngine;
 public class Health : IHealth
 {
     public event Action Died;
+    public event Action<float> HealthChanged;
 
     private float _currentHealth;
     private ILoggerService _logger;
@@ -26,6 +27,7 @@ public class Health : IHealth
             return;
 
         _currentHealth -= value;
+        HealthChanged?.Invoke(_currentHealth);
         _logger.Log("Take Damage. Current health - " + _currentHealth);
 
         if (IsDied())
@@ -41,6 +43,7 @@ public class Health : IHealth
             return;
 
         _currentHealth += value;
+        HealthChanged?.Invoke(_currentHealth);
         _logger.Log("Restore Health. Current health - " + _currentHealth);
     }
 }

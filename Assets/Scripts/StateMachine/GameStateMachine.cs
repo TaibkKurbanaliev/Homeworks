@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameStateMachine
 {
-    private List<IState> _states;
+    private List<IState> _states = new();
     private IState _currentState;
 
     public void AddState<T>(T state) where T : IState
