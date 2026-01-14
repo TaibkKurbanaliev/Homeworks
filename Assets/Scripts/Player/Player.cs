@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour, IDamagable
@@ -13,6 +14,14 @@ public class Player : MonoBehaviour, IDamagable
         _movement = movement;
         _health = health;
         _logger = logger;
+        _health.Died -= OnPlayerDied;
+        _health.Died += OnPlayerDied;
+    }
+
+
+    private void OnDisable()
+    {
+        _health.Died -= OnPlayerDied;
     }
 
     private void FixedUpdate()
@@ -32,5 +41,10 @@ public class Player : MonoBehaviour, IDamagable
     public void TakeDamage(float damage)
     {
         _health.ReduceHealth(damage);
+    }
+
+    private void OnPlayerDied()
+    {
+        Destroy(gameObject);
     }
 }

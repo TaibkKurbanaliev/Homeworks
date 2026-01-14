@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Health : IHealth
 {
+    public event Action Died;
+
     private float _currentHealth;
     private ILoggerService _logger;
 
@@ -15,6 +17,7 @@ public class Health : IHealth
         _logger = logger;
     }
 
+
     public bool IsDied() => _currentHealth <= 0;
 
     public void ReduceHealth(float value)
@@ -26,7 +29,10 @@ public class Health : IHealth
         _logger.Log("Take Damage. Current health - " + _currentHealth);
 
         if (IsDied())
+        {
             _logger.Log("Died");
+            Died?.Invoke();
+        }
     }
 
     public void RestoreHealth(float value)
