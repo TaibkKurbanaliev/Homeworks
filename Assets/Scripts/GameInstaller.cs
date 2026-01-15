@@ -20,6 +20,8 @@ public class GameInstaller : MonoBehaviour
     [SerializeField] private MainMenuView _menuView;
     [SerializeField] private PauseView _pauseView;
     [SerializeField] private GameplayHUD _hudView;
+    [SerializeField] private Spawner _spawner;
+    [SerializeField] private CollectibleConfig _coinConfig;
 
     private GameStateMachine _stateMachine;
 
@@ -28,6 +30,7 @@ public class GameInstaller : MonoBehaviour
     private IInputService _input;
     private IMovementService _movement;
     private IHealth _health;
+    private IEntityFactory<Collectible> _coinFactory;
 
     public void Awake()
     {
@@ -41,16 +44,17 @@ public class GameInstaller : MonoBehaviour
         _input = new DefaultInputService(_actions);
         _movement = new RigidbodyMovement(_player.GetComponent<Rigidbody>());
         _health = new Health(100f, _loggerService);
+        _coinFactory = new CollectibleFactory(_coinConfig);
 
         _player.Construct(_input, _movement, _health, _loggerService);
-
+        _spawner.Construct(_coinFactory);
         _loggerService.Log("StartGame");
 
         _hudView.Construct(_health);
 
         _stateMachine = new GameStateMachine();
         _stateMachine.AddState(new MainMenuState(_stateMachine, _menuView));
-        _stateMachine.AddState(new GameplayState(_stateMachine, _hudView, _health));
+        _stateMachine.AddState(new GameplayState(_stateMachine, _hudView, _health, _spawner));
         _stateMachine.AddState(new PauseState(_stateMachine, _pauseView));
         _stateMachine.AddState(new GameOverState(_stateMachine, _gameOverView));
         _stateMachine.SwitchState<MainMenuState>();

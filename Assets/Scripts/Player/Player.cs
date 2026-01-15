@@ -31,7 +31,7 @@ public class Player : MonoBehaviour, IDamagable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<Collectable>(out _))
+        if (other.TryGetComponent<Collectible>(out _))
         {
             _logger.Log("Item picked");
             Destroy(other.gameObject);
