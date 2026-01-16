@@ -14,11 +14,18 @@ public class Spawner : MonoBehaviour, IPauseEntity
 
     private bool _isPaused = false;
     private IEntityFactory<Collectible> _coinFactory;
+    private ICollectibleService _service;
     private List<Collectible> _coins = new();
 
-    public void Construct(IEntityFactory<Collectible> coinFactory)
+    public void Construct(IEntityFactory<Collectible> coinFactory, ICollectibleService collectible)
     {
         _coinFactory = coinFactory;
+        _service = collectible;
+
+        foreach (var coin in _coins)
+            coin.OnCollected -= OnCoinCollected;
+        
+        _coins.Clear();
 
         for (int i = 0; i < _spawnPoints.Count; i++)
         {
@@ -38,6 +45,7 @@ public class Spawner : MonoBehaviour, IPauseEntity
     {
         coin.OnCollected -= OnCoinCollected;
         var index = _coins.IndexOf(coin);
+        _service.Collect();
         StartCoroutine(SpawnCoin(index));
     }
 

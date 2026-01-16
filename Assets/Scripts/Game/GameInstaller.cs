@@ -19,6 +19,7 @@ public class GameInstaller : MonoBehaviour
     
     private ILoggerService _loggerService;
     private IInputService _input;
+    private ICollectibleService _collectible;
     
     public void Awake()
     {
@@ -35,8 +36,9 @@ public class GameInstaller : MonoBehaviour
 
         _loggerService = new ConsoleLogger();
         _input = new DefaultInputService(_actions);
+        _collectible = new CollectibleService();
 
-        _services.GlobalServicesRegister(_loggerService, _input);
+        _services.GlobalServicesRegister(_loggerService, _input, _collectible);
     }
 
     private void OnDisable()

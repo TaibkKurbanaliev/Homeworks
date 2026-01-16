@@ -11,6 +11,7 @@ public class GameController
     private CollectibleConfig _coinConfig;
     private Player _player;
     private Spawner _spawner;
+    private ICollectibleService _collectible;
 
     public GameController(ServicesSOAP services, Spawner spawner, CollectibleConfig coinConfig, Player player)
     {
@@ -20,6 +21,11 @@ public class GameController
         _spawner = spawner;
     }
 
+    public GameController(ServicesSOAP services, Spawner spawner, CollectibleConfig coinConfig, Player player, ICollectibleService collectible) : this(services, spawner, coinConfig, player)
+    {
+        _collectible = collectible;
+    }
+
     public void StartLevel()
     {
         _services.LoggerService.Log("GameStarted");
@@ -27,7 +33,7 @@ public class GameController
         _services.Health.Reset();
         _player.gameObject.SetActive(true);
         _player.Construct(_services.Input, _services.Movement, _services.Health, _services.LoggerService);
-        _spawner.Construct(_coinFactory);
+        _spawner.Construct(_coinFactory, _collectible);
     }
 
     public void LoadMenu()

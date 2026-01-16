@@ -8,11 +8,13 @@ public class ServicesSOAP : ScriptableObject
     public IInputService Input { get; private set; }
     public IMovementService Movement { get; private set; }
     public IHealth Health { get; private set; }
+    public ICollectibleService Collectible { get; private set; }
 
-    public void GlobalServicesRegister(ILoggerService loggerService, IInputService input)
+    public void GlobalServicesRegister(ILoggerService loggerService, IInputService input, ICollectibleService collectible)
     {
         LoggerService = loggerService;
         Input = input;
+        Collectible = collectible;
     }
 
     public void PlayerServicesRegister(IMovementService movement, IHealth health)
