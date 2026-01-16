@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour 
+public class Spawner : MonoBehaviour, IPauseEntity
 {
     [SerializeField] private float _spawnDelay;
     [SerializeField] private Collectible _prefab;
     [SerializeField] private List<Transform> _spawnPoints;
 
+    private bool _isPaused = false;
     private IEntityFactory<Collectible> _coinFactory;
     private List<Collectible> _coins = new();
 
@@ -42,9 +43,23 @@ public class Spawner : MonoBehaviour
 
     public IEnumerator SpawnCoin(int coinIndex)
     {
-        yield return new WaitForSeconds(_spawnDelay);
+        var currentSpawnTime = 0f;
+
+        while (currentSpawnTime < _spawnDelay)
+        {
+            if (!_isPaused)
+                currentSpawnTime += Time.deltaTime;
+
+            yield return null;
+        }
+
         var newCoin = _coinFactory.Create(_prefab, _spawnPoints[coinIndex].position);
         newCoin.OnCollected += OnCoinCollected;
         _coins[coinIndex] = newCoin;
+    }
+
+    public void Pause(bool isPaused)
+    {
+        _isPaused = isPaused;
     }
 }

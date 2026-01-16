@@ -7,6 +7,7 @@ public class Health : IHealth
     public event Action<float> HealthChanged;
 
     private float _currentHealth;
+    private float _maxHealth;
     private ILoggerService _logger;
 
     public Health(float currentHealth, ILoggerService logger)
@@ -15,6 +16,7 @@ public class Health : IHealth
             throw new ArgumentException();
 
         _currentHealth = currentHealth;
+        _maxHealth = currentHealth;
         _logger = logger;
     }
 
@@ -45,5 +47,11 @@ public class Health : IHealth
         _currentHealth += value;
         HealthChanged?.Invoke(_currentHealth);
         _logger.Log("Restore Health. Current health - " + _currentHealth);
+    }
+
+    public void Reset()
+    {
+        _currentHealth = _maxHealth;
+        HealthChanged?.Invoke(_currentHealth);
     }
 }

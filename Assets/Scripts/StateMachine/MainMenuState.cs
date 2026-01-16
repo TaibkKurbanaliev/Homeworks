@@ -5,11 +5,13 @@ public class MainMenuState : IState
 {
     private GameStateMachine _stateMachine;
     private IMainMenuView _mainMenuView;
+    private GameController _controller;
 
-    public MainMenuState(GameStateMachine stateMachine, IMainMenuView mainMenuView)
+    public MainMenuState(GameStateMachine stateMachine, IMainMenuView mainMenuView, GameController controller)
     {
         _stateMachine = stateMachine;
         _mainMenuView = mainMenuView;
+        _controller = controller;
     }
 
     public void Enter()
@@ -34,5 +36,6 @@ public class MainMenuState : IState
     private void OnStartClicked()
     {
         _stateMachine.SwitchState<GameplayState>();
+        _controller.StartLevel();
     }
 }

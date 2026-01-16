@@ -35,10 +35,11 @@ public class GameOverView : MonoBehaviour, IGameOverView
 
     private void OnMenuButtonClicked()
     {
+        MenuClicked?.Invoke();
     }
 
     private void OnRestartButtonClicked()
     {
-
+        RestartClicked?.Invoke();
     }
 }

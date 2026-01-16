@@ -24,12 +24,12 @@ public class MainMenuView : MonoBehaviour, IMainMenuView
 
     private void OnExitButtonClicked()
     {
-        StartClicked?.Invoke();
+        ExitClicked?.Invoke();
     }
 
     private void OnPlayButtonClicked()
     {
-        ExitClicked?.Invoke();
+        StartClicked?.Invoke();
     }
 
     public void Hide()

@@ -1,12 +1,14 @@
 using System;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDamagable
+public class Player : MonoBehaviour, IDamagable, IPauseEntity
 {
+    [SerializeField] private Vector3 _spawnPosition;
     private IInputService _input;
     private IMovementService _movement;
     private IHealth _health;
     private ILoggerService _logger;
+    private bool _isPaused;
 
     public void Construct(IInputService inputService, IMovementService movement, IHealth health, ILoggerService logger)
     {
@@ -16,16 +18,21 @@ public class Player : MonoBehaviour, IDamagable
         _logger = logger;
         _health.Died -= OnPlayerDied;
         _health.Died += OnPlayerDied;
+        transform.position = _spawnPosition;
     }
 
 
     private void OnDisable()
     {
-        _health.Died -= OnPlayerDied;
+        if (_health != null)
+            _health.Died -= OnPlayerDied;
     }
 
     private void FixedUpdate()
     {
+        if (_isPaused)
+            return;
+
         _movement.Move(_input.GetMoveInput());
     }
 
@@ -45,6 +52,11 @@ public class Player : MonoBehaviour, IDamagable
 
     private void OnPlayerDied()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+    }
+
+    public void Pause(bool isPaused)
+    {
+        _isPaused = isPaused;
     }
 }

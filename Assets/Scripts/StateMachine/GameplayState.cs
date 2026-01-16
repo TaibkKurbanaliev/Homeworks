@@ -18,7 +18,6 @@ public class GameplayState : IState
         _hud.Show();
         _hud.PauseClicked += OnPauseClicked;
         _health.Died += OnPlayerDied;
-        _spawner.gameObject.SetActive(true);
     }
 
     public void Exit()
@@ -26,7 +25,6 @@ public class GameplayState : IState
         _hud.Hide();
         _hud.PauseClicked -= OnPauseClicked;
         _health.Died -= OnPlayerDied;
-        _spawner.gameObject.SetActive(false);
     }
 
     private void OnPauseClicked()

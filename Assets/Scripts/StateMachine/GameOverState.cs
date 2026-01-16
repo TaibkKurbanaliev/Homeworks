@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameOverState : IState
 {
     private GameStateMachine _stateMachine;
     private IGameOverView _view;
+    private GameController _controller;
 
     public GameOverState(GameStateMachine stateMachine, IGameOverView view)
     {
@@ -11,9 +13,13 @@ public class GameOverState : IState
         _view = view;
     }
 
+    public GameOverState(GameStateMachine stateMachine, IGameOverView view, GameController controller) : this(stateMachine, view)
+    {
+        _controller = controller;
+    }
+
     public void Enter()
     {
-        Time.timeScale = 0f;
         _view.Show();
         _view.MenuClicked += OnMenuClicked;
         _view.RestartClicked += OnRestartClicked;
@@ -21,17 +27,19 @@ public class GameOverState : IState
 
     public void Exit()
     {
+        _view.MenuClicked -= OnMenuClicked;
+        _view.RestartClicked -= OnRestartClicked;
         _view.Hide();
-        Time.timeScale = 1f;
     }
 
     private void OnRestartClicked()
     {
         _stateMachine.SwitchState<GameplayState>();
+        _controller.StartLevel();
     }
 
     private void OnMenuClicked()
     {
-        _stateMachine.SwitchState<MainMenuState>();
+        _controller.LoadMenu();
     }
 }
