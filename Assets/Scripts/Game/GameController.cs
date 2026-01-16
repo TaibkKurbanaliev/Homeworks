@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Windows;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GameController
 {
@@ -41,4 +44,28 @@ public class GameController
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void ChangeInputType(InputType type)
+    {
+        IInputService input;
+
+        switch (type)
+        {
+            case InputType.Keyboard:
+                input = new DefaultInputService(_services.Actions);
+                break;
+            case InputType.AI:
+                var target = new Vector3(2f, 2f, 2f);
+                input = new AIInputService(target, _player.transform);
+                break;
+            case InputType.FakeInput:
+                input = new FakeInputService(Vector2.up);
+                break;
+            default:
+                throw new NotImplementedException();
+        }
+
+        _player.Construct(input, _services.Movement, _services.Health, _services.LoggerService);
+
+        _services.LoggerService.Log("Change input type - " + type);
+    }
 }

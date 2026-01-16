@@ -8,9 +8,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour, IPauseEntity
 {
-    [SerializeField] private float _spawnDelay;
-    [SerializeField] private Collectible _prefab;
-    [SerializeField] private List<Transform> _spawnPoints;
+    [SerializeField] private SpawnServiceConfig _config;
 
     private bool _isPaused = false;
     private IEntityFactory<Collectible> _coinFactory;
@@ -27,9 +25,9 @@ public class Spawner : MonoBehaviour, IPauseEntity
         
         _coins.Clear();
 
-        for (int i = 0; i < _spawnPoints.Count; i++)
+        for (int i = 0; i < _config.SpawnPoints.Count; i++)
         {
-            var newCoin = _coinFactory.Create(_prefab, _spawnPoints[i].position);
+            var newCoin = _coinFactory.Create(_config.Prefab, _config.SpawnPoints[i]);
             newCoin.OnCollected += OnCoinCollected;
             _coins.Add(newCoin);
         }
@@ -53,7 +51,7 @@ public class Spawner : MonoBehaviour, IPauseEntity
     {
         var currentSpawnTime = 0f;
 
-        while (currentSpawnTime < _spawnDelay)
+        while (currentSpawnTime < _config.SpawnDelay)
         {
             if (!_isPaused)
                 currentSpawnTime += Time.deltaTime;
@@ -61,7 +59,7 @@ public class Spawner : MonoBehaviour, IPauseEntity
             yield return null;
         }
 
-        var newCoin = _coinFactory.Create(_prefab, _spawnPoints[coinIndex].position);
+        var newCoin = _coinFactory.Create(_config.Prefab, _config.SpawnPoints[coinIndex]);
         newCoin.OnCollected += OnCoinCollected;
         _coins[coinIndex] = newCoin;
     }

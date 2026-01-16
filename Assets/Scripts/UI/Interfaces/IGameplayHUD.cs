@@ -4,4 +4,5 @@ using UnityEngine;
 public interface IGameplayHUD : IView
 {
     event Action PauseClicked;
+    event Action<InputType> InputTypeChanged;
 }

@@ -1,18 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum InputType
-{
-    Keyboard,
-    AI,
-    FakeInput,
-}
 
 [DefaultExecutionOrder(-2)]
 public class GameInstaller : MonoBehaviour
 {
+    private const string k_Game = "Game";
     [SerializeField] private ServicesSOAP _services;
-    //[SerializeField] private TMP_Dropdown _inputTypes;
     [SerializeField] private Transform _target;
 
     private InputSystem_Actions _actions;
@@ -23,10 +17,11 @@ public class GameInstaller : MonoBehaviour
     
     public void Awake()
     {
-        /*_inputTypes.AddOptions(Enum.GetNames(typeof(InputType)).ToList());
-        _inputTypes.onValueChanged.AddListener(OnInputTypesValueChanged);*/
+        
         InitServices();
-        SceneManager.LoadScene("Game", LoadSceneMode.Additive);
+
+        if (!SceneManager.GetSceneByName(k_Game).isLoaded)
+            SceneManager.LoadScene(k_Game, LoadSceneMode.Additive);
     }
 
     private void InitServices()
@@ -38,33 +33,11 @@ public class GameInstaller : MonoBehaviour
         _input = new DefaultInputService(_actions);
         _collectible = new CollectibleService();
 
-        _services.GlobalServicesRegister(_loggerService, _input, _collectible);
+        _services.GlobalServicesRegister(_loggerService, _input, _collectible, _actions);
     }
 
     private void OnDisable()
     {
         _actions.Disable();
     }
-
-    /*private void OnInputTypesValueChanged(int value)
-    {
-        switch((InputType)value)
-        {
-            case InputType.Keyboard:
-                _input = new DefaultInputService(_actions);
-                break;
-            case InputType.AI:
-                _input = new AIInputService(_target, Player.transform);
-                break;
-            case InputType.FakeInput:
-                _input = new FakeInputService(Vector2.up);
-                break;
-            default:
-                throw new NotImplementedException();
-        }
-
-        Player.Construct(_input, _movement, _health, _loggerService);
-
-        _loggerService.Log(_inputTypes.options[value].text);
-    }*/
 }

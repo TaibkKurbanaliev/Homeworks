@@ -1,13 +1,14 @@
 using System.Collections;
 using UnityEngine;
 
-public class Trap : MonoBehaviour
+public class Trap : MonoBehaviour, IPauseEntity
 {
     [SerializeField] private float _damage = 10f;
     [SerializeField] private float _height = 1f;
     [SerializeField] private float _speed = 1f;
     [SerializeField] private int _startDelay;
 
+    private bool _isPaused;
     private float _startY;
 
     private void Start()
@@ -19,7 +20,7 @@ public class Trap : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent<IDamagable>(out IDamagable target))
+        if (other.gameObject.TryGetComponent<IDamagable>(out IDamagable target) && !_isPaused)
             target.TakeDamage(_damage);
     }
 
@@ -29,13 +30,22 @@ public class Trap : MonoBehaviour
 
         while (true)
         {
-            float newY = _startY + Mathf.Sin(Time.time * _speed - _startDelay * _speed) * _height;
-            transform.position = new Vector3(
-                transform.position.x,
-                newY,
-                transform.position.z
-            );
+            if (!_isPaused)
+            {
+                float newY = _startY + Mathf.Sin(Time.time * _speed - _startDelay * _speed) * _height;
+                transform.position = new Vector3(
+                    transform.position.x,
+                    newY,
+                    transform.position.z
+                );
+            }
+            
             yield return null;
         }
+    }
+
+    public void Pause(bool isPaused)
+    {
+        _isPaused = isPaused;
     }
 }

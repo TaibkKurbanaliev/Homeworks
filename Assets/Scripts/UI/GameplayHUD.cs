@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,8 +7,10 @@ using UnityEngine.UI;
 public class GameplayHUD : MonoBehaviour, IGameplayHUD
 {
     public event Action PauseClicked;
+    public event Action<InputType> InputTypeChanged;
 
     [SerializeField] private Button _pauseButton;
+    [SerializeField] private TMP_Dropdown _inputTypes;
     [SerializeField] private TMP_Text _health;
     [SerializeField] private TMP_Text _points;
 
@@ -18,6 +21,8 @@ public class GameplayHUD : MonoBehaviour, IGameplayHUD
     {
         _collectibleService = collectible;
         _playerHealth = health;
+        _inputTypes.AddOptions(Enum.GetNames(typeof(InputType)).ToList());
+        _inputTypes.onValueChanged.AddListener(OnInputTypeChanged);
     }
 
     private void OnEnable()
@@ -25,6 +30,7 @@ public class GameplayHUD : MonoBehaviour, IGameplayHUD
         _playerHealth.HealthChanged += OnHealthChanged;
         _collectibleService.Collected += OnCollected;
         _pauseButton.onClick.AddListener(OnPauseClicked);
+        _points.text = 0f.ToString();
     }
 
     private void OnDisable()
@@ -57,5 +63,10 @@ public class GameplayHUD : MonoBehaviour, IGameplayHUD
     private void OnCollected(int count)
     {
         _points.text = count.ToString();
+    }
+
+    public void OnInputTypeChanged(int value)
+    {
+        InputTypeChanged?.Invoke((InputType)value);
     }
 }

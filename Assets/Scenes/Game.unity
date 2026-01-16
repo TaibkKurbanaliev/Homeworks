@@ -3574,6 +3574,23 @@ MonoBehaviour:
   _player: {fileID: 6355995366430149402, guid: a9648190008184844ae2ea7975e04b47, type: 3}
   _spawner: {fileID: 6612113455149784350}
   _coinConfig: {fileID: 11400000, guid: a58942ea7dbafec44a1f4e2cc1605740, type: 2}
+  _traps:
+  - {fileID: 843600301}
+  - {fileID: 1323839212}
+  - {fileID: 1410651017}
+  - {fileID: 896713434}
+  - {fileID: 414752636}
+  - {fileID: 663915946}
+  - {fileID: 1833626679}
+  - {fileID: 964333123}
+  - {fileID: 1534097633}
+  - {fileID: 1075184610}
+  - {fileID: 200894150}
+  - {fileID: 484444136}
+  - {fileID: 875538877}
+  - {fileID: 1102403240}
+  - {fileID: 501744671}
+  - {fileID: 502153884}
 --- !u!43 &57144977
 Mesh:
   m_ObjectHideFlags: 0
@@ -31109,37 +31126,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &651887787
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 651887788}
-  m_Layer: 0
-  m_Name: Point (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &651887788
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 651887787}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13, y: 1.358, z: -13}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1428482513}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &652417004
 GameObject:
   m_ObjectHideFlags: 0
@@ -44830,37 +44816,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &899339095
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 899339096}
-  m_Layer: 0
-  m_Name: Point (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &899339096
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 899339095}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13, y: 1.358, z: 13}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1428482513}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &911940789
 GameObject:
   m_ObjectHideFlags: 0
@@ -70026,37 +69981,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!1 &1413678025
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1413678026}
-  m_Layer: 0
-  m_Name: Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1413678026
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1413678025}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13, y: 1.358, z: -13}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1428482513}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1413701372
 Mesh:
   m_ObjectHideFlags: 0
@@ -70387,41 +70311,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &1428482512
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1428482513}
-  m_Layer: 0
-  m_Name: SpawnPoints
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1428482513
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1428482512}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1413678026}
-  - {fileID: 651887788}
-  - {fileID: 899339096}
-  - {fileID: 1861729863}
-  m_Father: {fileID: 1769589838}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1437635445
 Mesh:
   m_ObjectHideFlags: 0
@@ -89406,7 +89295,6 @@ Transform:
   m_Children:
   - {fileID: 403291984}
   - {fileID: 1951196109}
-  - {fileID: 1428482513}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1773136241
@@ -93603,37 +93491,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &1861729862
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1861729863}
-  m_Layer: 0
-  m_Name: Point (3)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1861729863
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1861729862}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13, y: 1.358, z: 13}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1428482513}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1877544839
 GameObject:
   m_ObjectHideFlags: 0
@@ -98004,6 +97861,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pauseButton: {fileID: 848234664}
+  _inputTypes: {fileID: 241156024}
   _health: {fileID: 345975671}
   _points: {fileID: 826223857}
 --- !u!43 &2019903370
@@ -102478,13 +102336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606ee12c879e7724d9b5826af1b76613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnDelay: 2
-  _prefab: {fileID: 6826603381045947281, guid: 9d4febbea3e8068459b40091cc0eead1, type: 3}
-  _spawnPoints:
-  - {fileID: 1413678026}
-  - {fileID: 651887788}
-  - {fileID: 899339096}
-  - {fileID: 1861729863}
+  _config: {fileID: 11400000, guid: 9878a37b50bb47a45b2c171f82779e08, type: 2}
 --- !u!1 &7626489863830638683
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ public class Bootstrap : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private Spawner _spawner;
     [SerializeField] private CollectibleConfig _coinConfig;
+    [SerializeField] private List<Trap> _traps;
 
     private List<IPauseEntity> _pauseEntities = new();
     private GameStateMachine _stateMachine;
@@ -25,6 +26,11 @@ public class Bootstrap : MonoBehaviour
 
         _pauseEntities.Add(_player);
         _pauseEntities.Add(_spawner);
+        
+        foreach(var trap in _traps)
+        {
+            _pauseEntities.Add(trap);
+        }
 
 
         var movement = new RigidbodyMovement(_player.GetComponent<Rigidbody>());
@@ -42,7 +48,7 @@ public class Bootstrap : MonoBehaviour
     {
         _stateMachine = new GameStateMachine();
         _stateMachine.AddState(new MainMenuState(_stateMachine, _menuView, _controller));
-        _stateMachine.AddState(new GameplayState(_stateMachine, _hudView, _services.Health, _spawner));
+        _stateMachine.AddState(new GameplayState(_stateMachine, _hudView, _services.Health, _spawner, _controller));
         _stateMachine.AddState(new PauseState(_stateMachine, _pauseView, _pauseEntities, _controller));
         _stateMachine.AddState(new GameOverState(_stateMachine, _gameOverView, _controller));
     }
