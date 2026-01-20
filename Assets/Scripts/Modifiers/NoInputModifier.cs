@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class NoInputModifier : IGameModifier
 {
-    private float _workTime = 3f;
+    private NoInputModifierConfig _config;
     private float _timer;
-    private float _reloadTime = 10f;
 
     private bool _isDisabled;
     private bool _isReloading;
@@ -15,9 +14,10 @@ public class NoInputModifier : IGameModifier
 
     private CancellationTokenSource _cts;
 
-    public NoInputModifier(IInputService input)
+    public NoInputModifier(IInputService input, NoInputModifierConfig config)
     {
         _inputService = input;
+        _config = config;
     }
 
     public void OnEnterGameplay()
@@ -41,7 +41,7 @@ public class NoInputModifier : IGameModifier
         if (_isReloading)
             _timer += deltaTime;
             
-        if (_timer >= _reloadTime)
+        if (_timer >= _config.ReloadTime)
         {
             _timer = 0f;
             _ = SwapInput();
@@ -54,7 +54,7 @@ public class NoInputModifier : IGameModifier
     {
         _inputService.SetActive(false);
 
-        await Task.Delay((int)(_workTime * 1000), _cts.Token);
+        await Task.Delay((int)(_config.NotWorkingTime * 1000), _cts.Token);
 
         _inputService.SetActive(true);
         _isReloading = true;

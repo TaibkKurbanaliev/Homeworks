@@ -2,16 +2,14 @@ using UnityEngine;
 
 public class RegenModifier : IGameModifier
 {
-    private float _delay = 1f;
-    private float _regenValue = 1f;
-
+    private RegenModifierConfig _config;
+    private IHealth _health;
     private float _timer;
 
-    private IHealth _health;
-
-    public RegenModifier(IHealth health)
+    public RegenModifier(IHealth health, RegenModifierConfig config)
     {
         _health = health;
+        _config = config;
     }
 
     public void OnEnterGameplay()
@@ -27,10 +25,10 @@ public class RegenModifier : IGameModifier
     {
         _timer += deltaTime;
 
-        if (_timer >= _delay)
+        if (_timer >= _config.Delay)
         {
             Debug.Log("Healed");
-            _health.RestoreHealth(_regenValue);
+            _health.RestoreHealth(_config.RegenValue);
             _timer = 0f;
         }
     }

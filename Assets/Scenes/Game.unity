@@ -3573,7 +3573,6 @@ MonoBehaviour:
   _hudView: {fileID: 2007373180}
   _player: {fileID: 6355995366430149402, guid: a9648190008184844ae2ea7975e04b47, type: 3}
   _spawner: {fileID: 6612113455149784350}
-  _coinConfig: {fileID: 11400000, guid: a58942ea7dbafec44a1f4e2cc1605740, type: 2}
   _traps:
   - {fileID: 843600301}
   - {fileID: 1323839212}
@@ -3591,6 +3590,8 @@ MonoBehaviour:
   - {fileID: 1102403240}
   - {fileID: 501744671}
   - {fileID: 502153884}
+  _coinConfig: {fileID: 11400000, guid: a58942ea7dbafec44a1f4e2cc1605740, type: 2}
+  _modifierConfig: {fileID: 11400000, guid: 03aa3b42173540943bea9f8c6e454f0d, type: 2}
 --- !u!43 &57144977
 Mesh:
   m_ObjectHideFlags: 0
