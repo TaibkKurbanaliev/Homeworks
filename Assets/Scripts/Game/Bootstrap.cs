@@ -38,7 +38,7 @@ public class Bootstrap : MonoBehaviour
         _services.PlayerServicesRegister(movement, health);
 
         _hudView.Construct(_services.Health, _services.Collectible);
-        _controller = new GameController(_services, _spawner, _coinConfig, _player, _services.Collectible);
+        _controller = new GameController(_services, _spawner, _coinConfig, _player, _services.Collectible, new());
 
         SetupStateMachine();
         _stateMachine.SwitchState<MainMenuState>();

@@ -15,17 +15,16 @@ public class GameController
     private Player _player;
     private Spawner _spawner;
     private ICollectibleService _collectible;
+    private List<IGameModifier> _modifiers;
 
-    public GameController(ServicesSOAP services, Spawner spawner, CollectibleConfig coinConfig, Player player)
+    public GameController(ServicesSOAP services, Spawner spawner, CollectibleConfig coinConfig, 
+                          Player player, ICollectibleService collectible,  List<IGameModifier> modifiers)
     {
         _coinConfig = coinConfig;
         _services = services;
         _player = player;
         _spawner = spawner;
-    }
-
-    public GameController(ServicesSOAP services, Spawner spawner, CollectibleConfig coinConfig, Player player, ICollectibleService collectible) : this(services, spawner, coinConfig, player)
-    {
+        _modifiers = modifiers;
         _collectible = collectible;
     }
 
