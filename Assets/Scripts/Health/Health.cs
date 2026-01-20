@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Health : IHealth
 {
@@ -44,7 +45,8 @@ public class Health : IHealth
         if (IsDied() || value <= 0)
             return;
 
-        _currentHealth += value;
+
+        _currentHealth = Mathf.Clamp(_currentHealth + value, 0, _maxHealth);
         HealthChanged?.Invoke(_currentHealth);
         _logger.Log("Restore Health. Current health - " + _currentHealth);
     }

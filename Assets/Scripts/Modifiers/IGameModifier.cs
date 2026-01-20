@@ -4,5 +4,5 @@ public interface IGameModifier
 {
     void OnEnterGameplay();
     void OnExitGameplay();
-    void Tick();
+    void Tick(float deltaTime);
 }

@@ -20,7 +20,7 @@ public class Trap : MonoBehaviour, IPauseEntity
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent<IDamagable>(out IDamagable target) && !_isPaused)
+        if (other.gameObject.TryGetComponent<IDamagable>(out var target) && !_isPaused)
             target.TakeDamage(_damage);
     }
 

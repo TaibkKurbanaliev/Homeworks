@@ -32,7 +32,6 @@ public class Bootstrap : MonoBehaviour
             _pauseEntities.Add(trap);
         }
 
-
         var movement = new RigidbodyMovement(_player.GetComponent<Rigidbody>());
         var health = new Health(100f, _services.LoggerService);
         _services.PlayerServicesRegister(movement, health);

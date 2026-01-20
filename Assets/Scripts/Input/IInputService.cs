@@ -4,4 +4,5 @@ public interface IInputService
 {
     Vector2 GetMoveInput();
     bool IsActionPressed();
+    void SetActive(bool isEnabled);
 }

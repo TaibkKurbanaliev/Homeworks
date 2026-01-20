@@ -4,6 +4,7 @@ public class AIInputService : IInputService
 {
     private Vector3 _target;
     private Transform _current;
+    private bool _enabled = true;
 
     public AIInputService(Vector3 target, Transform current)
     {
@@ -13,7 +14,7 @@ public class AIInputService : IInputService
 
     public Vector2 GetMoveInput()
     {
-        if (_target == null)
+        if (_target == null || !_enabled)
             return Vector2.zero;
 
         var dir = _target - _current.position;
@@ -25,6 +26,11 @@ public class AIInputService : IInputService
 
     public bool IsActionPressed()
     {
-        throw new System.NotImplementedException();
+        return false;
+    }
+
+    public void SetActive(bool isEnabled)
+    {
+        _enabled = isEnabled;
     }
 }

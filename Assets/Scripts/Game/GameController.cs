@@ -4,6 +4,7 @@ using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Windows;
+using static Unity.Cinemachine.CinemachineFreeLookModifier;
 using static UnityEngine.Rendering.DebugUI;
 
 public class GameController
@@ -15,7 +16,7 @@ public class GameController
     private Player _player;
     private Spawner _spawner;
     private ICollectibleService _collectible;
-    private List<IGameModifier> _modifiers;
+    private List<IGameModifier> _modifiers = new();
 
     public GameController(ServicesSOAP services, Spawner spawner, CollectibleConfig coinConfig, 
                           Player player, ICollectibleService collectible,  List<IGameModifier> modifiers)
@@ -34,8 +35,17 @@ public class GameController
         _coinFactory = new CollectibleFactory(_coinConfig);
         _services.Health.Reset();
         _player.gameObject.SetActive(true);
-        _player.Construct(_services.Input, _services.Movement, _services.Health, _services.LoggerService);
+        _modifiers.Add(new SpeedModifier(_services.Movement));
+        _modifiers.Add(new RegenModifier(_services.Health));
+        _modifiers.Add(new NoInputModifier(_services.Input));
+        _player.Construct(_services.Input, _services.Movement, _services.Health, _services.LoggerService, _modifiers);
         _spawner.Construct(_coinFactory, _collectible);
+
+        foreach (var modifier in _modifiers)
+        {
+            modifier.OnExitGameplay();
+            modifier.OnEnterGameplay();
+        }
     }
 
     public void LoadMenu()
@@ -63,7 +73,7 @@ public class GameController
                 throw new NotImplementedException();
         }
 
-        _player.Construct(input, _services.Movement, _services.Health, _services.LoggerService);
+        _player.ChangeInput(input);
 
         _services.LoggerService.Log("Change input type - " + type);
     }
