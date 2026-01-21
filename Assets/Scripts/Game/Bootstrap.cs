@@ -11,6 +11,7 @@ public class Bootstrap : MonoBehaviour
     [SerializeField] private MainMenuView _menuView;
     [SerializeField] private PauseView _pauseView;
     [SerializeField] private GameplayHUD _hudView;
+    [SerializeField] private ModifiersView _modifiersView;
     [Header("Scene Objects")]
     [SerializeField] private Player _player;
     [SerializeField] private Spawner _spawner;
@@ -41,7 +42,7 @@ public class Bootstrap : MonoBehaviour
         _services.PlayerServicesRegister(movement, health);
 
         _hudView.Construct(_services.Health, _services.Collectible);
-        _controller = new GameController(_services, _spawner, _coinConfig, _player, _services.Collectible, _modifierConfig);
+        _controller = new GameController(_services, _spawner, _coinConfig, _player, _services.Collectible, _modifierConfig, _modifiersView);
 
         SetupStateMachine();
         _stateMachine.SwitchState<MainMenuState>();
@@ -51,7 +52,8 @@ public class Bootstrap : MonoBehaviour
     {
         _stateMachine = new GameStateMachine();
         _stateMachine.AddState(new MainMenuState(_stateMachine, _menuView, _controller));
-        _stateMachine.AddState(new GameplayState(_stateMachine, _hudView, _services.Health, _spawner, _controller));
+        _stateMachine.AddState(new GameplayState(_stateMachine, _hudView, _services.Health, _spawner, 
+                                                 _controller, _modifiersView));
         _stateMachine.AddState(new PauseState(_stateMachine, _pauseView, _pauseEntities, _controller));
         _stateMachine.AddState(new GameOverState(_stateMachine, _gameOverView, _controller));
     }

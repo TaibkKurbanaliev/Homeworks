@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e97e848205e46b4798a1031209ba66b, type: 3}
   m_Name: NoInputModifierConfig
   m_EditorClassIdentifier: 
-  <NotWorkingTime>k__BackingField: 3
+  <NotWorkingTime>k__BackingField: 5
   <ReloadTime>k__BackingField: 10

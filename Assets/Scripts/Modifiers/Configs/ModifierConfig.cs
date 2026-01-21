@@ -6,9 +6,9 @@ using UnityEngine;
 public class ModifierConfig : ScriptableObject
 {
 
-    [SerializeField] private List<ModifierType> _startModifiers;
     [SerializeField] private ServicesSOAP _services;
 
+    [field: SerializeField] public List<ModifierType> StartModifiers { get; private set; }
     [field: SerializeField] public SpeedModifierConfig SpeedModifierConfig { get; private set; }
     [field: SerializeField] public RegenModifierConfig RegenModifierConfig { get; private set; }
     [field: SerializeField] public NoInputModifierConfig NoInputModifierConfig { get; private set; }
@@ -21,7 +21,7 @@ public class ModifierConfig : ScriptableObject
     {
         _modifiers.Clear();
 
-        foreach (var type in _startModifiers)
+        foreach (var type in StartModifiers)
             _modifiers.Add(GetModifier(type));
     }
 
@@ -34,7 +34,7 @@ public class ModifierConfig : ScriptableObject
             case ModifierType.Regen:
                 return new RegenModifier(_services.Health, RegenModifierConfig);
             case ModifierType.Input:
-                return new NoInputModifier(_services.Input, NoInputModifierConfig);
+                return new NoInputModifier(_services, NoInputModifierConfig);
             default:
                 throw new NotImplementedException(type.ToString());
         }

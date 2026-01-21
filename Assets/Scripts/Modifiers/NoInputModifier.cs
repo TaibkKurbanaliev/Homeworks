@@ -10,14 +10,14 @@ public class NoInputModifier : IGameModifier
     private bool _isDisabled;
     private bool _isReloading;
 
-    private IInputService _inputService;
+    private ServicesSOAP _services;
 
     private CancellationTokenSource _cts;
 
-    public NoInputModifier(IInputService input, NoInputModifierConfig config)
+    public NoInputModifier(ServicesSOAP services,NoInputModifierConfig config)
     {
-        _inputService = input;
         _config = config;
+        _services = services;
     }
 
     public void OnEnterGameplay()
@@ -30,6 +30,7 @@ public class NoInputModifier : IGameModifier
     public void OnExitGameplay()
     {
         _isDisabled = true;
+        _services.Input.SetActive(true);
         _cts?.Cancel();
     }
 
@@ -52,11 +53,11 @@ public class NoInputModifier : IGameModifier
 
     private async Task SwapInput()
     {
-        _inputService.SetActive(false);
+        _services.Input.SetActive(false);
 
         await Task.Delay((int)(_config.NotWorkingTime * 1000), _cts.Token);
 
-        _inputService.SetActive(true);
+        _services.Input.SetActive(true);
         _isReloading = true;
     }
 }

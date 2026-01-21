@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88aa301ea1c963540879716ef3611aad, type: 3}
   m_Name: ModifierConfig
   m_EditorClassIdentifier: 
-  _startModifiers: 00000000010000000100000000000000
   _services: {fileID: 11400000, guid: ca00937101a159a4baa3788d8fcc5a16, type: 2}
+  <StartModifiers>k__BackingField: 02000000
   <SpeedModifierConfig>k__BackingField: {fileID: 11400000, guid: 91bfeb4d68809bc49a7a053a42e77211, type: 2}
   <RegenModifierConfig>k__BackingField: {fileID: 11400000, guid: 3d08efe0bde00844ba94b0eef5460445, type: 2}
   <NoInputModifierConfig>k__BackingField: {fileID: 11400000, guid: 85abd50569e9c1046a84c4a3817d4d4b, type: 2}

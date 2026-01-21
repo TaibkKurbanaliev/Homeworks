@@ -25,4 +25,9 @@ public class ServicesSOAP : ScriptableObject
         Movement = movement;
         Health = health;
     }
+
+    public void ChangeInputService(IInputService service)
+    {
+        Input = service;
+    }
 }

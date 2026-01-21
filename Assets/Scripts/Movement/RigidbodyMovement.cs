@@ -17,6 +17,7 @@ public class RigidbodyMovement : IMovementService
 
     public void SetMovementMultiplier(float multiplier)
     {
-        _movementMultiplier = multiplier;
+        _movementMultiplier *= multiplier;
+        Debug.Log(_movementMultiplier);
     }
 }
