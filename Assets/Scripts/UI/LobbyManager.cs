@@ -1,6 +1,7 @@
 using Mirror;
 using System;
 using System.Collections.Generic;
+using UnityEditor.MemoryProfiler;
 using UnityEngine;
 
 public class LobbyManager : NetworkBehaviour
@@ -12,23 +13,48 @@ public class LobbyManager : NetworkBehaviour
 
     private void Awake()
     {
-        NetworkManagerExt.singleton.OnServerPlayerConnected += OnServerPlayerConnected;
-        NetworkManagerExt.singleton.OnServerPlayerDisconnected += OnServerPlayerDisconnected;
+        NetworkManagerExt.singleton.OnServerPlayerConnected += Singleton_OnServerPlayerConnected; ;
+        NetworkManagerExt.singleton.OnServerPlayerDisconnected += Singleton_OnServerPlayerDisconnected; ;
     }
 
-    private void OnServerPlayerConnected()
+    private void Singleton_OnServerPlayerDisconnected()
     {
-        RpcAddPlayer();
+        throw new NotImplementedException();
     }
 
-    private void OnServerPlayerDisconnected()
+    private void Singleton_OnServerPlayerConnected(NetworkConnection conn)
     {
+        if (NetworkManagerExt.LocalPlayers.TryGetValue(conn, out var networkIdentity))
+        {
+            foreach (var player in NetworkManagerExt.LocalPlayers)
+            {
+                if (player.Key != conn)
+                {
+                    TargetPlayerConnected(conn, player.Value.GetComponent<InstanceInfo>());
+                }
+            }
+
+            RpcPlayerConnected(networkIdentity.GetComponent<InstanceInfo>());
+        }
     }
+
+    [TargetRpc]
+    private void TargetPlayerConnected(NetworkConnection conn, InstanceInfo info)
+    {
+        AddPlayer(info);
+    }
+
 
     [ClientRpc]
-    private void RpcAddPlayer()
+    private void RpcPlayerConnected(InstanceInfo info)
+    {
+        AddPlayer(info);
+    }
+
+    private void AddPlayer(InstanceInfo info)
     {
         var playerView = Instantiate(_viewPrefab, _container);
+        playerView.Init(info);
         _playersViews.Add(playerView);
     }
 }

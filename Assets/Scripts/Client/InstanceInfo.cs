@@ -11,6 +11,12 @@ public class InstanceInfo : NetworkBehaviour
     [SyncVar(hook = nameof(InstanceInfo_NameChanged)), SerializeField] private string _name;
     [SyncVar(hook = nameof(InstanceInfo_ColorChanged)), SerializeField] private Color _color;
     [SyncVar(hook = nameof(InstanceInfo_ReadyChanged)), SerializeField] private bool _isReady;
+    [SyncVar] private bool _isLeader;
+
+    public string Name => _name;
+    public Color Color => _color;
+    public bool IsReady => _isReady;
+    public bool IsLeader => _isLeader;
 
     public void SetName(string name)
     {
@@ -27,6 +33,12 @@ public class InstanceInfo : NetworkBehaviour
         CmdSetReady(isReady);
     }
 
+    [Server]
+    public void SetLeader()
+    {
+        _isLeader = true;
+    }
+
     private void InstanceInfo_ReadyChanged(bool prev, bool next)
     {
         if (prev == next)
@@ -34,6 +46,7 @@ public class InstanceInfo : NetworkBehaviour
 
         OnReadyChanged?.Invoke(next);
     }
+
 
     [Command]
     private void CmdSetReady(bool isReady)
