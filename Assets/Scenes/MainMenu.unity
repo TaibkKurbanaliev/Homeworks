@@ -1906,7 +1906,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1302896376
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2116,7 +2116,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1790746101
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2414,7 +2414,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _createLobbyButton: {fileID: 1171000415}
   _joinButton: {fileID: 1292412719}
+  _connectButton: {fileID: 0}
   _exitButton: {fileID: 1754636358}
+  _ipInput: {fileID: 0}
+  _joinMenu: {fileID: 1302896375}
+  _buttonsMenu: {fileID: 1790746100}
 --- !u!224 &1954906591
 RectTransform:
   m_ObjectHideFlags: 0

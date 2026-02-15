@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class InstanceInfo : NetworkBehaviour
 {
-    public event Action<string> OnNameChanged;
-    public event Action<Color> OnColorChanged;
-    public event Action<bool> OnReadyChanged;
+    public event Action<string> NameChanged;
+    public event Action<Color> ColorChanged;
+    public event Action<bool> ReadyChanged;
 
-    [SyncVar(hook = nameof(InstanceInfo_NameChanged)), SerializeField] private string _name;
-    [SyncVar(hook = nameof(InstanceInfo_ColorChanged)), SerializeField] private Color _color;
-    [SyncVar(hook = nameof(InstanceInfo_ReadyChanged)), SerializeField] private bool _isReady;
+    [SyncVar(hook = nameof(OnNameChanged)), SerializeField] private string _name;
+    [SyncVar(hook = nameof(OnColorChanged)), SerializeField] private Color _color;
+    [SyncVar(hook = nameof(OnReadyChanged)), SerializeField] private bool _isReady;
     [SyncVar] private bool _isLeader;
 
     public string Name => _name;
@@ -39,12 +39,12 @@ public class InstanceInfo : NetworkBehaviour
         _isLeader = true;
     }
 
-    private void InstanceInfo_ReadyChanged(bool prev, bool next)
+    private void OnReadyChanged(bool prev, bool next)
     {
         if (prev == next)
             return;
 
-        OnReadyChanged?.Invoke(next);
+        ReadyChanged?.Invoke(next);
     }
 
 
@@ -54,12 +54,12 @@ public class InstanceInfo : NetworkBehaviour
         _isReady = isReady;
     }
 
-    private void InstanceInfo_ColorChanged(Color prev, Color next)
+    private void OnColorChanged(Color prev, Color next)
     {
         if (prev == next)
             return;
 
-        OnColorChanged?.Invoke(next);
+        ColorChanged?.Invoke(next);
     }
 
     [Command]
@@ -68,12 +68,12 @@ public class InstanceInfo : NetworkBehaviour
         _color = color;
     }
 
-    private void InstanceInfo_NameChanged(string prev, string next)
+    private void OnNameChanged(string prev, string next)
     {
         if (prev == next)
             return;
 
-        OnNameChanged?.Invoke(next);
+        NameChanged?.Invoke(next);
     }
 
     [Command]

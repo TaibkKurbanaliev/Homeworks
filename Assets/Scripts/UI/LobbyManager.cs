@@ -1,7 +1,6 @@
 using Mirror;
 using System;
 using System.Collections.Generic;
-using UnityEditor.MemoryProfiler;
 using UnityEngine;
 
 public class LobbyManager : NetworkBehaviour
@@ -13,16 +12,16 @@ public class LobbyManager : NetworkBehaviour
 
     private void Awake()
     {
-        NetworkManagerExt.singleton.OnServerPlayerConnected += Singleton_OnServerPlayerConnected; ;
-        NetworkManagerExt.singleton.OnServerPlayerDisconnected += Singleton_OnServerPlayerDisconnected; ;
+        NetworkManagerExt.singleton.ServerPlayerConnected += OnServerPlayerConnected; ;
+        NetworkManagerExt.singleton.ServerPlayerDisconnected += OnServerPlayerDisconnected; ;
     }
 
-    private void Singleton_OnServerPlayerDisconnected()
+    private void OnServerPlayerDisconnected()
     {
         throw new NotImplementedException();
     }
 
-    private void Singleton_OnServerPlayerConnected(NetworkConnection conn)
+    private void OnServerPlayerConnected(NetworkConnection conn)
     {
         if (NetworkManagerExt.LocalPlayers.TryGetValue(conn, out var networkIdentity))
         {

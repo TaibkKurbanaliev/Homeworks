@@ -6,8 +6,8 @@ public class NetworkManagerExt : NetworkManager
 {
     public static readonly Dictionary<NetworkConnection, NetworkIdentity> LocalPlayers = new Dictionary<NetworkConnection, NetworkIdentity>();
     public static new NetworkManagerExt singleton => (NetworkManagerExt) NetworkManager.singleton;
-    public event Action<NetworkConnection> OnServerPlayerConnected;
-    public event Action OnServerPlayerDisconnected;
+    public event Action<NetworkConnection> ServerPlayerConnected;
+    public event Action ServerPlayerDisconnected;
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
@@ -22,12 +22,12 @@ public class NetworkManagerExt : NetworkManager
         if (LocalPlayers.Count == 1)
             player.GetComponent<InstanceInfo>().SetLeader();
 
-        OnServerPlayerConnected?.Invoke(conn);
+        ServerPlayerConnected?.Invoke(conn);
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
-        OnServerPlayerDisconnected?.Invoke();
+        ServerPlayerDisconnected?.Invoke();
         LocalPlayers.Remove(conn);
         base.OnServerDisconnect(conn);
     }

@@ -14,9 +14,9 @@ public class PlayerLobbyView : MonoBehaviour
     public void Init(InstanceInfo info)
     {
         _info = info;
-        _info.OnNameChanged += _info_OnNameChanged;
-        _info.OnReadyChanged += _info_OnReadyChanged;
-        _info.OnColorChanged += _info_OnColorChanged;
+        _info.NameChanged += _info_OnNameChanged;
+        _info.ReadyChanged += _info_OnReadyChanged;
+        _info.ColorChanged += _info_OnColorChanged;
 
         _info_OnNameChanged(info.Name);
         _info_OnReadyChanged(info.IsReady);
