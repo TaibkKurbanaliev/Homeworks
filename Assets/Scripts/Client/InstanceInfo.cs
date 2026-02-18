@@ -28,9 +28,9 @@ public class InstanceInfo : NetworkBehaviour
         CmdSetColor(color);
     }
 
-    public void SetReady(bool isReady)
+    public void SetReady()
     {
-        CmdSetReady(isReady);
+        CmdSetReady();
     }
 
     [Server]
@@ -49,9 +49,9 @@ public class InstanceInfo : NetworkBehaviour
 
 
     [Command]
-    private void CmdSetReady(bool isReady)
+    private void CmdSetReady()
     {
-        _isReady = isReady;
+        _isReady = !_isReady;
     }
 
     private void OnColorChanged(Color prev, Color next)

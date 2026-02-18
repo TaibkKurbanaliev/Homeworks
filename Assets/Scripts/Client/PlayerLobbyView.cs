@@ -27,7 +27,6 @@ public class PlayerLobbyView : MonoBehaviour
 
     private void _info_OnColorChanged(Color color)
     {
-        color.a = 0.1f;
         _backgoundColor.color = color;
     }
 

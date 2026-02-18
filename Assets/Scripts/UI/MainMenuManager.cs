@@ -10,6 +10,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private Button _joinButton;
     [SerializeField] private Button _connectButton;
     [SerializeField] private Button _exitButton;
+    [SerializeField] private Button _backButton;
 
     [SerializeField] private TMP_InputField _ipInput;
 
@@ -22,6 +23,18 @@ public class MainMenuManager : MonoBehaviour
         _joinButton.onClick.AddListener(OnJoinLobbyPressed);
         _connectButton.onClick.AddListener(OnConnectButtonPressed);
         _exitButton.onClick.AddListener(OnExitPressed);
+        _backButton.onClick.AddListener(OnBackButtonPressed);
+    }
+
+    private void OnDestroy()
+    {
+        
+    }
+
+    private void OnBackButtonPressed()
+    {
+        _buttonsMenu.SetActive(true);
+        _joinMenu.SetActive(false);
     }
 
     private void OnCreateLobbyPressed()
@@ -37,7 +50,6 @@ public class MainMenuManager : MonoBehaviour
 
     private void OnConnectButtonPressed()
     {
-        Debug.Log("Client");
         NetworkManagerExt.singleton.networkAddress = _ipInput.text;
         NetworkManagerExt.singleton.StartClient();
     }
