@@ -13,10 +13,26 @@ public class InstanceInfo : NetworkBehaviour
     [SyncVar(hook = nameof(OnReadyChanged)), SerializeField] private bool _isReady;
     [SyncVar] private bool _isLeader;
 
+    private PlayerInfo _playerInfo;
+
     public string Name => _name;
     public Color Color => _color;
     public bool IsReady => _isReady;
     public bool IsLeader => _isLeader;
+
+    [Server]
+    public void Init(PlayerInfo info)
+    {
+        _playerInfo = info;
+        _name = info.Name;
+        _color = info.Color;
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        EventBus<InstanceConnectedEvent>.Raise(new InstanceConnectedEvent { Info = this });
+    }
 
     public void SetName(string name)
     {
@@ -66,6 +82,7 @@ public class InstanceInfo : NetworkBehaviour
     private void CmdSetColor(Color color)
     {
         _color = color;
+        _playerInfo.Color = color;
     }
 
     private void OnNameChanged(string prev, string next)
@@ -80,5 +97,6 @@ public class InstanceInfo : NetworkBehaviour
     private void CmdSetName(string name)
     {
         _name = name;
+        _playerInfo.Name = name;
     }
 }

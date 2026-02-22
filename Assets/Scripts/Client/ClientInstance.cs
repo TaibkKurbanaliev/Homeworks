@@ -1,4 +1,5 @@
 using Mirror;
+using System;
 using UnityEngine;
 
 public class ClientInstance : NetworkBehaviour
@@ -14,22 +15,17 @@ public class ClientInstance : NetworkBehaviour
         _instance = this;
     }
 
-    public static ClientInstance ReturnClientInstance(NetworkConnection conn = null)
+    public override void OnStopLocalPlayer()
     {
-        if (NetworkClient.active && conn != null)
-        {
-            NetworkIdentity localPlayer;
+        base.OnStopLocalPlayer();
+    }
 
-            if (NetworkManagerExt.LocalPlayers.TryGetValue(conn, out localPlayer))
-            {
-                return localPlayer.GetComponent<ClientInstance>();
-            }
-            else
-            {
-                return null;
-            }
-        }
 
-        return _instance;
+    [Server]
+    public void NetworkCreatePlayer(Transform _spawnPoint)
+    {
+        var player = Instantiate(_player, _spawnPoint.position, _spawnPoint.rotation);
+        player.Init(GetComponent<InstanceInfo>());
+        NetworkServer.Spawn(player.gameObject, connectionToClient);
     }
 }

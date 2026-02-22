@@ -143,7 +143,6 @@ namespace UniExtension.Editor
             if (root == null)
                 return;
 
-            // Центральная зона (кнопки Play)
             var centerZone = root.Q("ToolbarZonePlayMode");
             if (centerZone == null)
                 return;

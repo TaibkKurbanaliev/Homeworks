@@ -11,6 +11,8 @@ public class PlayerLobbyView : MonoBehaviour
 
     private InstanceInfo _info;
 
+    public InstanceInfo Info => _info;
+
     public void Init(InstanceInfo info)
     {
         _info = info;

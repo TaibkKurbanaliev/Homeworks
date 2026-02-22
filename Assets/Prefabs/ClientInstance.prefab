@@ -49,7 +49,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _player: {fileID: 0}
+  _player: {fileID: 5431787463270579012, guid: bad43345b604afe488a2e17a56240042, type: 3}
   _playerLobbyView: {fileID: 0}
 --- !u!114 &6747201792687385154
 MonoBehaviour:
@@ -83,6 +83,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.2
-  _name: Ishkek
-  _color: {r: 0.26666668, g: 0.26666668, b: 0.26666668, a: 0}
+  _name: Default
+  _color: {r: 0.26666668, g: 0.26666668, b: 0.26666668, a: 1}
   _isReady: 0
+  <PlayerInfo>k__BackingField: {fileID: 11400000, guid: 65478517699911f42a694b016ff3ddaf, type: 2}
