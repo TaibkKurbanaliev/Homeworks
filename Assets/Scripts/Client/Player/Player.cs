@@ -12,8 +12,14 @@ public class Player : NetworkBehaviour
             _playerView = GetComponent<PlayerView>();
     }
 
-    public void Init(InstanceInfo _info)
+    public void Init(InstanceInfo info)
     {
-        _playerView.Init(_info);
+        RpcInit(info);
+    }
+
+    [ClientRpc]
+    private void RpcInit(InstanceInfo info)
+    {
+        _playerView.Init(info);
     }
 }

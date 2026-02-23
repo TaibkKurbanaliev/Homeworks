@@ -6,11 +6,13 @@ using UnityEngine;
 public class NetworkManagerExt : NetworkManager
 {
     public static readonly Dictionary<NetworkConnection, NetworkIdentity> LocalPlayers = new();
-    private static readonly Dictionary<NetworkConnection, PlayerInfo> LocalPlayersInfo = new();
-    public static new NetworkManagerExt singleton => (NetworkManagerExt) NetworkManager.singleton;
+    public static new NetworkManagerExt singleton => (NetworkManagerExt)NetworkManager.singleton;
+
     public event Action<NetworkConnection> ServerPlayerConnected;
     public event Action<NetworkConnection> ServerPlayerDisconnected;
     public event Action ServerGameSceneLoaded;
+
+    private static readonly Dictionary<NetworkConnection, PlayerInfo> _localPlayersInfo = new();
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
@@ -20,11 +22,13 @@ public class NetworkManagerExt : NetworkManager
                      Instantiate(playerPrefab);
 
         var instanceInfo = player.GetComponent<InstanceInfo>();
-        var newPlayerInfo = LocalPlayersInfo.ContainsKey(conn) ? LocalPlayersInfo[conn] : new PlayerInfo();
-        instanceInfo.Init(newPlayerInfo);
-        LocalPlayersInfo[conn] = newPlayerInfo;
-        LocalPlayers[conn] = player.GetComponent<NetworkIdentity>();
+        var newPlayerInfo = _localPlayersInfo.ContainsKey(conn) ? _localPlayersInfo[conn] : new PlayerInfo();
+
         NetworkServer.AddPlayerForConnection(conn, player);
+
+        _localPlayersInfo[conn] = newPlayerInfo;
+        LocalPlayers[conn] = player.GetComponent<NetworkIdentity>();
+        instanceInfo.Init(newPlayerInfo);
 
         if (LocalPlayers.Count == 1)
             player.GetComponent<InstanceInfo>().SetLeader();

@@ -7,10 +7,12 @@ using UnityEngine;
 [DefaultExecutionOrder(-1)]
 public class Bootstrap : NetworkBehaviour
 {
+    [SerializeField] private GameManager _gameManager;
     [SerializeField] private List<Transform> _spawnPositions;
 
     public override void OnStartServer()
     {
+        Debug.Log(_gameManager.name);
         NetworkManagerExt.singleton.ServerPlayerConnected += OnServerPlayerConnected;
         NetworkManagerExt.singleton.ServerPlayerDisconnected += OnServerPlayerDisconnected;
     }
@@ -23,12 +25,12 @@ public class Bootstrap : NetworkBehaviour
 
     private void OnServerPlayerDisconnected(NetworkConnection connection)
     {
-        
     }
 
     private void OnServerPlayerConnected(NetworkConnection connection)
     {
-        var player = NetworkManagerExt.LocalPlayers[connection].GetComponent<ClientInstance>();
-        player.NetworkCreatePlayer(_spawnPositions.GetRandomElement());
+        var client = NetworkManagerExt.LocalPlayers[connection].GetComponent<ClientInstance>();
+        client.NetworkCreatePlayer(_spawnPositions.GetRandomElement());
+        _gameManager.AddPlayer(client.CurrentPlayer);
     }
 }
