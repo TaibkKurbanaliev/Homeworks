@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GameConfig", menuName = "Scriptable Objects/GameConfig")]
+[CreateAssetMenu(fileName = "GameConfig", menuName = "Configs/GameConfig")]
 public class GameConfig : ScriptableObject
 {
     [field: SerializeField] public float AllPlayersWaitingTime { get; private set; }

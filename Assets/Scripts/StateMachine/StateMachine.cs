@@ -27,8 +27,11 @@ public class StateMachine : IStateSwitcher
         _currentState.Enter();
     }
 
-    public void HandleInput() => _currentState.HandleInput();
-    public void Update() => _currentState.Update();
+    public void Update()
+    {
+        _currentState.HandleInput();
+        _currentState.Update();
+    }
 
     public void FixedUpdate() => _currentState.FixedUpdate();
 }
