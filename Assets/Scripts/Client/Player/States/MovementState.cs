@@ -18,21 +18,22 @@ public abstract class MovementState : IState
         Debug.Log($"Enter the {GetType().Name}");
     }
 
-    public void Exit()
+    public virtual void Exit()
     {
     }
 
-    public void FixedUpdate()
+    public virtual void FixedUpdate()
     {
+        GroundCheck();
         Move();
     }
 
-    public void HandleInput()
+    public virtual void HandleInput()
     {
-        Data.Input = Player.Actions.Player.Move.ReadValue<Vector2>();
+        Data.Input = Player.Input.Move();
     }
 
-    public void Update()
+    public virtual void Update()
     {
         Rotate();
     }
@@ -40,12 +41,29 @@ public abstract class MovementState : IState
     private void Move()
     {
         var moveDir = Player.transform.forward * Data.Input.y + Player.transform.right * Data.Input.x;
-        var newVelocity = moveDir * Data.Speed;
+        var newVelocity = moveDir * Data.HorizontalSpeed;
         Player.Rigidbody.AddForce(newVelocity, ForceMode.VelocityChange);
     }
 
     private void Rotate()
     {
 
+    }
+
+    private void GroundCheck()
+    {
+        Vector3 playerCenter = Player.Rigidbody.position + Player.Collider.center;
+        var castRadiusOffset = 0.01f;
+
+        var distance = (Player.Collider.height / 2) - Player.Collider.radius;
+        var ray = new Ray(playerCenter, -Player.transform.up); // down direction
+
+        if (Physics.SphereCast(ray, Player.Collider.radius - castRadiusOffset, out var hitInfo, distance + castRadiusOffset * 2f))
+        {
+            Data.IsGrounded = true;
+            return;
+        }
+
+        Data.IsGrounded = false;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class WalkingState : MovementState
@@ -14,7 +15,28 @@ public class WalkingState : MovementState
     {
         base.Enter();
 
-        Data.Speed = _cfg.Speed;
+        Data.HorizontalSpeed = _cfg.Speed;
         Player.Rigidbody.linearDamping = _cfg.Drag;
+        Player.Input.Jumped += OnJumpPressed;
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+        Player.Input.Jumped -= OnJumpPressed;
+    }
+
+    public override void Update()
+    {
+        base.Update();
+
+        if (!Data.IsGrounded)
+            StateSwitcher.SwitchState<FallingState>();
+    }
+
+    private void OnJumpPressed()
+    {
+        StateSwitcher.SwitchState<JumpingState>();
     }
 }

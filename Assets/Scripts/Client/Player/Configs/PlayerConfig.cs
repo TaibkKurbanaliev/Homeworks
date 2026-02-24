@@ -4,4 +4,5 @@ using UnityEngine;
 public class PlayerConfig : ScriptableObject
 {
     [field: SerializeField] public WalkingStateConfig WalkingStateConfig { get; private set; }
+    [field: SerializeField] public AirborneStateConfig AirborneStateConfig { get; private set; }
 }

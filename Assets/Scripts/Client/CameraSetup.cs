@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CameraSetup : MonoBehaviour
 {
+    [SerializeField] private CinemachineCamera _camera;
     private EventBinding<PlayerConnectedToGame> _playerConnectedBinding;
-    private CinemachineCamera _camera;
 
     private void Awake()
     {
@@ -18,8 +18,8 @@ public class CameraSetup : MonoBehaviour
         EventBus<PlayerConnectedToGame>.Deregister(_playerConnectedBinding);
     }
 
-    private void OnPlayerConnectedToGame(PlayerConnectedToGame @evemt)
+    private void OnPlayerConnectedToGame(PlayerConnectedToGame @event)
     {
-
+        _camera.Target.TrackingTarget = @event.Player.CameraTarget;
     }
 }

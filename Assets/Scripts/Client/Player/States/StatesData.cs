@@ -3,18 +3,19 @@ using UnityEngine;
 
 public class StatesData
 {
+    public bool IsGrounded;
     public Vector2 Input;
 
-    private float _speed;
-    public float Speed
+    private float _horizontalSpeed;
+    public float HorizontalSpeed
     {
-        get => _speed; 
+        get => _horizontalSpeed; 
         set
         {
             if (value < 0)
-                throw new ArgumentOutOfRangeException($"The field {nameof(_speed)} mustn't be negative");
+                throw new ArgumentOutOfRangeException($"The field {nameof(_horizontalSpeed)} mustn't be negative");
 
-            _speed = value;
+            _horizontalSpeed = value;
         }
     }
 }
