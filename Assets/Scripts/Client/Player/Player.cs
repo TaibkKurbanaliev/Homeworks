@@ -2,15 +2,16 @@ using JetBrains.Annotations;
 using Mirror;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerView), typeof(Rigidbody), typeof(CapsuleCollider))]
+[RequireComponent(typeof(PlayerView), typeof(CharacterController), typeof(CapsuleCollider))]
 public class Player : NetworkBehaviour
 {
     [SerializeField] private PlayerConfig _config;
 
     private StateMachine _stateMachine;
 
+
     [field: SerializeField] public PlayerView PlayerView { get; private set; }
-    [field: SerializeField] public Rigidbody Rigidbody { get; private set; }
+    [field: SerializeField] public CharacterController CharacterController { get; private set; }
     [field: SerializeField] public Transform CameraTarget { get; private set; }
     [field: SerializeField] public CapsuleCollider Collider { get; private set; }
 
@@ -34,8 +35,8 @@ public class Player : NetworkBehaviour
         if (PlayerView == null)
             PlayerView = GetComponent<PlayerView>();
         
-        if (Rigidbody == null)
-            Rigidbody = GetComponent<Rigidbody>();
+        if (CharacterController == null)
+            CharacterController = GetComponent<CharacterController>();
         
         if (Collider == null)
             Collider = GetComponent<CapsuleCollider>();

@@ -24,46 +24,40 @@ public abstract class MovementState : IState
 
     public virtual void FixedUpdate()
     {
-        GroundCheck();
-        Move();
     }
 
     public virtual void HandleInput()
     {
-        Data.Input = Player.Input.Move();
+        Data.MoveInput = Player.Input.Move();
+        Data.LookInput = Player.Input.Look();
     }
 
     public virtual void Update()
     {
         Rotate();
+        Move();
+        Gravity();
     }
 
     private void Move()
     {
-        var moveDir = Player.transform.forward * Data.Input.y + Player.transform.right * Data.Input.x;
-        var newVelocity = moveDir * Data.HorizontalSpeed;
-        Player.Rigidbody.AddForce(newVelocity, ForceMode.VelocityChange);
+        var moveDir = Player.transform.forward * Data.MoveInput.y + Player.transform.right * Data.MoveInput.x;
+        var newVelocity = moveDir * Data.HorizontalSpeed * Time.deltaTime;
+        Data.Velocity.x = newVelocity.x;
+        Data.Velocity.z = newVelocity.z;
+        Player.CharacterController.Move(Data.Velocity * Time.deltaTime);
     }
 
     private void Rotate()
     {
-
+        
     }
 
-    private void GroundCheck()
+    private void Gravity()
     {
-        Vector3 playerCenter = Player.Rigidbody.position + Player.Collider.center;
-        var castRadiusOffset = 0.01f;
-
-        var distance = (Player.Collider.height / 2) - Player.Collider.radius;
-        var ray = new Ray(playerCenter, -Player.transform.up); // down direction
-
-        if (Physics.SphereCast(ray, Player.Collider.radius - castRadiusOffset, out var hitInfo, distance + castRadiusOffset * 2f))
-        {
-            Data.IsGrounded = true;
-            return;
-        }
-
-        Data.IsGrounded = false;
+        if (!Player.CharacterController.isGrounded)
+            Data.Velocity.y += Physics.gravity.y * Time.deltaTime;
+        else
+            Data.Velocity.y = Physics.gravity.y;
     }
 }

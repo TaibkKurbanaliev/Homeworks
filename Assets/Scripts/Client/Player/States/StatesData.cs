@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class StatesData
 {
+    public Vector3 Velocity;
+    public Vector2 MoveInput;
+    public Vector2 LookInput;
     public bool IsGrounded;
-    public Vector2 Input;
 
     private float _horizontalSpeed;
     public float HorizontalSpeed

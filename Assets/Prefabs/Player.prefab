@@ -140,11 +140,10 @@ GameObject:
   - component: {fileID: 44836253567928100}
   - component: {fileID: 1582269004248427638}
   - component: {fileID: 5431787463270579012}
-  - component: {fileID: 3608386714310666645}
   - component: {fileID: 8775456220688318763}
   - component: {fileID: 8982962850802222049}
   - component: {fileID: 6447263630735173914}
-  - component: {fileID: 8946698551636489052}
+  - component: {fileID: 2992548391545894656}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -224,36 +223,9 @@ MonoBehaviour:
   syncInterval: 0
   _config: {fileID: 11400000, guid: 99e4e2c29c1b9d84da98be95e23c2d8d, type: 2}
   <PlayerView>k__BackingField: {fileID: 1582269004248427638}
-  <Rigidbody>k__BackingField: {fileID: 3608386714310666645}
+  <CharacterController>k__BackingField: {fileID: 2992548391545894656}
   <CameraTarget>k__BackingField: {fileID: 6566374438952740693}
   <Collider>k__BackingField: {fileID: 8775456220688318763}
---- !u!54 &3608386714310666645
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 870626148676687183}
-  serializedVersion: 4
-  m_Mass: 10
-  m_Drag: 20
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 112
-  m_CollisionDetection: 2
 --- !u!136 &8775456220688318763
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -328,40 +300,31 @@ MonoBehaviour:
   positionSensitivity: 0.01
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
---- !u!114 &8946698551636489052
-MonoBehaviour:
+--- !u!143 &2992548391545894656
+CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 870626148676687183}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b20dc110904e47f8a154cdcf6433eae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 1
-  syncMode: 0
-  syncInterval: 0.1
-  target: {fileID: 8400613413448847598}
-  syncPosition: 1
-  syncRotation: 1
-  syncScale: 0
-  onlySyncOnChange: 1
-  compressRotation: 1
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
-  coordinateSpace: 0
-  timelineOffset: 1
-  showGizmos: 0
-  showOverlay: 0
-  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
-  bufferResetMultiplier: 3
-  useFixedUpdate: 0
-  positionSensitivity: 0.01
-  rotationSensitivity: 0.01
-  scaleSensitivity: 0.01
+  serializedVersion: 3
+  m_Height: 1.8
+  m_Radius: 0.32
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!1 &927039284141848682
 GameObject:
   m_ObjectHideFlags: 0

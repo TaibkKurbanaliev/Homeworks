@@ -16,7 +16,6 @@ public class WalkingState : MovementState
         base.Enter();
 
         Data.HorizontalSpeed = _cfg.Speed;
-        Player.Rigidbody.linearDamping = _cfg.Drag;
         Player.Input.Jumped += OnJumpPressed;
     }
 
@@ -31,7 +30,7 @@ public class WalkingState : MovementState
     {
         base.Update();
 
-        if (!Data.IsGrounded)
+        if (!Player.CharacterController.isGrounded)
             StateSwitcher.SwitchState<FallingState>();
     }
 

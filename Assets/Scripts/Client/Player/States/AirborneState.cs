@@ -14,14 +14,13 @@ public abstract class AirborneState : MovementState
         base.Enter();
 
         Data.HorizontalSpeed = Config.AirHorizontalSpeed;
-        Player.Rigidbody.linearDamping = 0f;
     }
 
     public override void Update()
     {
         base.Update();
 
-        if (Data.IsGrounded)
+        if (Player.CharacterController.isGrounded)
             StateSwitcher.SwitchState<WalkingState>();
     }
 }
