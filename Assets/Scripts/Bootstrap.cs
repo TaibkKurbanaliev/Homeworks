@@ -31,6 +31,5 @@ public class Bootstrap : NetworkBehaviour
     {
         var client = NetworkManagerExt.LocalPlayers[connection].GetComponent<ClientInstance>();
         client.NetworkCreatePlayer(_spawnPositions.GetRandomElement());
-        _gameManager.AddPlayer(client.CurrentPlayer);
     }
 }

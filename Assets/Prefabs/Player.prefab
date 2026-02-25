@@ -292,6 +292,7 @@ GameObject:
   - component: {fileID: 8400613413448847598}
   - component: {fileID: 1582269004248427638}
   - component: {fileID: 5431787463270579012}
+  - component: {fileID: -3831598713068030870}
   - component: {fileID: 8775456220688318763}
   - component: {fileID: 8982962850802222049}
   - component: {fileID: 6447263630735173914}
@@ -358,10 +359,26 @@ MonoBehaviour:
   syncInterval: 0
   _config: {fileID: 11400000, guid: 99e4e2c29c1b9d84da98be95e23c2d8d, type: 2}
   <PlayerView>k__BackingField: {fileID: 1582269004248427638}
+  <PlayerInfo>k__BackingField: {fileID: -3831598713068030870}
   <CharacterController>k__BackingField: {fileID: 2992548391545894656}
   <CameraTarget>k__BackingField: {fileID: 6566374438952740693}
   <Collider>k__BackingField: {fileID: 8775456220688318763}
   <Settings>k__BackingField: {fileID: 11400000, guid: 11deee192b85d1f48a40213102e1bc1f, type: 2}
+--- !u!114 &-3831598713068030870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870626148676687183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f52932d4031c7f44eaf02aaf63d4e55b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!136 &8775456220688318763
 CapsuleCollider:
   m_ObjectHideFlags: 0

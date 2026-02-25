@@ -13,7 +13,7 @@ public class InstanceInfo : NetworkBehaviour
     [SyncVar(hook = nameof(OnReadyChanged)), SerializeField] private bool _isReady;
     [SyncVar] private bool _isLeader;
 
-    private PlayerInfo _playerInfo;
+    private InstanceSavedInfo _playerInfo;
 
     public string Name => _name;
     public Color Color => _color;
@@ -21,7 +21,7 @@ public class InstanceInfo : NetworkBehaviour
     public bool IsLeader => _isLeader;
 
     [Server]
-    public void Init(PlayerInfo info)
+    public void Init(InstanceSavedInfo info)
     {
         _playerInfo = info;
         _name = info.Name;

@@ -12,7 +12,7 @@ public class NetworkManagerExt : NetworkManager
     public event Action<NetworkConnection> ServerPlayerDisconnected;
     public event Action ServerGameSceneLoaded;
 
-    private static readonly Dictionary<NetworkConnection, PlayerInfo> _localPlayersInfo = new();
+    private static readonly Dictionary<NetworkConnection, InstanceSavedInfo> _localPlayersInfo = new();
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
@@ -22,7 +22,7 @@ public class NetworkManagerExt : NetworkManager
                      Instantiate(playerPrefab);
 
         var instanceInfo = player.GetComponent<InstanceInfo>();
-        var newPlayerInfo = _localPlayersInfo.ContainsKey(conn) ? _localPlayersInfo[conn] : new PlayerInfo();
+        var newPlayerInfo = _localPlayersInfo.ContainsKey(conn) ? _localPlayersInfo[conn] : new InstanceSavedInfo();
 
         NetworkServer.AddPlayerForConnection(conn, player);
 

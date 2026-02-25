@@ -7,14 +7,25 @@ public class Player : NetworkBehaviour
     [SerializeField] private PlayerConfig _config;
 
     private StateMachine _stateMachine;
+    private InstanceInfo _instanceInfo;
 
     [field: SerializeField] public PlayerView PlayerView { get; private set; }
+    [field: SerializeField] public PlayerInfo PlayerInfo { get; private set; }
     [field: SerializeField] public CharacterController CharacterController { get; private set; }
     [field: SerializeField] public Transform CameraTarget { get; private set; }
     [field: SerializeField] public CapsuleCollider Collider { get; private set; }
     [field: SerializeField] public Settings Settings { get; private set; }
 
     public IInput Input { get; private set; }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+
+        RpcInit(_instanceInfo);
+        EventBus<ServerPlayerConnectedToGame>.Raise(new ServerPlayerConnectedToGame { PlayerInfo = PlayerInfo, 
+                                                                                      InstanceInfo = _instanceInfo });
+    }
 
     public override void OnStartAuthority()
     {
@@ -65,7 +76,7 @@ public class Player : NetworkBehaviour
 
     public void Init(InstanceInfo info)
     {
-        RpcInit(info);
+        _instanceInfo = info;
         PlayerView.Init(info);
     }
 

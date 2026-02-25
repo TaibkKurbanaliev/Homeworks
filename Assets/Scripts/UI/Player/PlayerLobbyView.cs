@@ -16,28 +16,28 @@ public class PlayerLobbyView : MonoBehaviour
     public void Init(InstanceInfo info)
     {
         _info = info;
-        _info.NameChanged += _info_OnNameChanged;
-        _info.ReadyChanged += _info_OnReadyChanged;
-        _info.ColorChanged += _info_OnColorChanged;
+        _info.NameChanged += OnNameChanged;
+        _info.ReadyChanged += OnReadyChanged;
+        _info.ColorChanged += OnColorChanged;
 
-        _info_OnNameChanged(info.Name);
-        _info_OnReadyChanged(info.IsReady);
-        _info_OnColorChanged(info.Color);
+        OnNameChanged(info.Name);
+        OnReadyChanged(info.IsReady);
+        OnColorChanged(info.Color);
 
         _hostOrPlayer.text = info.IsLeader ? "Host" : "Player";
     }
 
-    private void _info_OnColorChanged(Color color)
+    private void OnColorChanged(Color color)
     {
         _backgoundColor.color = color;
     }
 
-    private void _info_OnReadyChanged(bool isReady)
+    private void OnReadyChanged(bool isReady)
     {
         _ready.text = isReady ? "Ready" : "NotReady";
     }
 
-    private void _info_OnNameChanged(string name)
+    private void OnNameChanged(string name)
     {
         _name.text = name;
     }
