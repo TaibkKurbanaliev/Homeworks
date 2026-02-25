@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using Mirror;
 using UnityEngine;
 
@@ -14,6 +13,7 @@ public class Player : NetworkBehaviour
     [field: SerializeField] public CharacterController CharacterController { get; private set; }
     [field: SerializeField] public Transform CameraTarget { get; private set; }
     [field: SerializeField] public CapsuleCollider Collider { get; private set; }
+    [field: SerializeField] public Settings Settings { get; private set; }
 
     public IInput Input { get; private set; }
 
@@ -34,10 +34,10 @@ public class Player : NetworkBehaviour
     {
         if (PlayerView == null)
             PlayerView = GetComponent<PlayerView>();
-        
+
         if (CharacterController == null)
             CharacterController = GetComponent<CharacterController>();
-        
+
         if (Collider == null)
             Collider = GetComponent<CapsuleCollider>();
     }

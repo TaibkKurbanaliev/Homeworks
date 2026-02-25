@@ -226,6 +226,7 @@ MonoBehaviour:
   <CharacterController>k__BackingField: {fileID: 2992548391545894656}
   <CameraTarget>k__BackingField: {fileID: 6566374438952740693}
   <Collider>k__BackingField: {fileID: 8775456220688318763}
+  <Settings>k__BackingField: {fileID: 11400000, guid: 11deee192b85d1f48a40213102e1bc1f, type: 2}
 --- !u!136 &8775456220688318763
 CapsuleCollider:
   m_ObjectHideFlags: 0
