@@ -8,7 +8,6 @@ public class Player : NetworkBehaviour
 
     private StateMachine _stateMachine;
 
-
     [field: SerializeField] public PlayerView PlayerView { get; private set; }
     [field: SerializeField] public CharacterController CharacterController { get; private set; }
     [field: SerializeField] public Transform CameraTarget { get; private set; }
@@ -20,13 +19,19 @@ public class Player : NetworkBehaviour
     public override void OnStartAuthority()
     {
         base.OnStartAuthority();
+
         var data = new StatesData();
         Input = new NewInputSystem();
+
+        CharacterController.enabled = true;
+        PlayerView.SetFPView();
+
         _stateMachine = new StateMachine();
         _stateMachine.AddState(new FallingState(this, _stateMachine, data, _config.AirborneStateConfig));
         _stateMachine.AddState(new JumpingState(this, _stateMachine, data, _config.AirborneStateConfig));
         _stateMachine.AddState(new WalkingState(this, _stateMachine, data, _config.WalkingStateConfig));
         _stateMachine.SwitchState<WalkingState>();
+
         EventBus<PlayerConnectedToGame>.Raise(new PlayerConnectedToGame { Player = this });
     }
 

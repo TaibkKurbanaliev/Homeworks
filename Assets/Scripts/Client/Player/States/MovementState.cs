@@ -46,6 +46,7 @@ public abstract class MovementState : IState
         Data.Velocity.x = newVelocity.x;
         Data.Velocity.z = newVelocity.z;
         Player.CharacterController.Move(Data.Velocity * Time.deltaTime);
+        Player.PlayerView.SetAnimDirection(Data.MoveInput);
     }
 
     private void Rotate()
