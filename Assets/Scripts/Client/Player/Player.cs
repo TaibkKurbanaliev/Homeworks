@@ -1,4 +1,5 @@
 using Mirror;
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerView), typeof(CharacterController), typeof(CapsuleCollider))]
@@ -7,7 +8,7 @@ public class Player : NetworkBehaviour
     [SerializeField] private PlayerConfig _config;
 
     private StateMachine _stateMachine;
-    private InstanceInfo _instanceInfo;
+    [SyncVar(hook = nameof(OnInstanceInfoChanged))] private InstanceInfo _instanceInfo;
 
     [field: SerializeField] public PlayerView PlayerView { get; private set; }
     [field: SerializeField] public PlayerInfo PlayerInfo { get; private set; }
@@ -18,11 +19,16 @@ public class Player : NetworkBehaviour
 
     public IInput Input { get; private set; }
 
+    [Server]
+    public void Init(InstanceInfo info)
+    {
+        _instanceInfo = info;
+    }
+
     public override void OnStartServer()
     {
         base.OnStartServer();
 
-        RpcInit(_instanceInfo);
         EventBus<ServerPlayerConnectedToGame>.Raise(new ServerPlayerConnectedToGame { PlayerInfo = PlayerInfo, 
                                                                                       InstanceInfo = _instanceInfo });
     }
@@ -32,10 +38,11 @@ public class Player : NetworkBehaviour
         base.OnStartAuthority();
 
         var data = new StatesData();
-        Input = new NewInputSystem();
 
         CharacterController.enabled = true;
         PlayerView.SetFPView();
+
+        EventBus<PlayerConnectedToGame>.Raise(new PlayerConnectedToGame { Player = this });
 
         _stateMachine = new StateMachine();
         _stateMachine.AddState(new FallingState(this, _stateMachine, data, _config.AirborneStateConfig));
@@ -43,7 +50,6 @@ public class Player : NetworkBehaviour
         _stateMachine.AddState(new WalkingState(this, _stateMachine, data, _config.WalkingStateConfig));
         _stateMachine.SwitchState<WalkingState>();
 
-        EventBus<PlayerConnectedToGame>.Raise(new PlayerConnectedToGame { Player = this });
     }
 
     protected override void OnValidate()
@@ -74,15 +80,14 @@ public class Player : NetworkBehaviour
         _stateMachine.FixedUpdate();
     }
 
-    public void Init(InstanceInfo info)
+    public void SetInput(IInput input)
     {
-        _instanceInfo = info;
-        PlayerView.Init(info);
+        Input = input;
     }
 
-    [ClientRpc]
-    private void RpcInit(InstanceInfo info)
+
+    private void OnInstanceInfoChanged(InstanceInfo oldValue, InstanceInfo newValue)
     {
-        PlayerView.Init(info);
+        PlayerView.Init(newValue);
     }
 }

@@ -1,35 +1,31 @@
-using Mirror;
 using System;
-using System.Collections.Generic;
-using UniExtension;
 using UnityEngine;
 
-[DefaultExecutionOrder(-1)]
-public class Bootstrap : NetworkBehaviour
+public class Bootstrap : MonoBehaviour
 {
-    [SerializeField] private GameManager _gameManager;
-    [SerializeField] private List<Transform> _spawnPositions;
+    [SerializeField] private LeaderboardController _leaderboardController;
 
-    public override void OnStartServer()
+    private IInput _input;
+
+    private EventBinding<PlayerConnectedToGame> _playerConnectedToGameBinding;
+
+    private void Awake()
     {
-        Debug.Log(_gameManager.name);
-        NetworkManagerExt.singleton.ServerPlayerConnected += OnServerPlayerConnected;
-        NetworkManagerExt.singleton.ServerPlayerDisconnected += OnServerPlayerDisconnected;
+        _input = new NewInputSystem();
+
+        _leaderboardController.Init(_input);
+
+        _playerConnectedToGameBinding = new EventBinding<PlayerConnectedToGame>(OnPlayerConnectedToGame);
+        EventBus<PlayerConnectedToGame>.Register(_playerConnectedToGameBinding);
     }
 
-    public override void OnStopServer()
+    private void OnDestroy()
     {
-        NetworkManagerExt.singleton.ServerPlayerConnected -= OnServerPlayerConnected;
-        NetworkManagerExt.singleton.ServerPlayerDisconnected -= OnServerPlayerDisconnected;
+        EventBus<PlayerConnectedToGame>.Deregister(_playerConnectedToGameBinding);
     }
 
-    private void OnServerPlayerDisconnected(NetworkConnection connection)
+    private void OnPlayerConnectedToGame(PlayerConnectedToGame game)
     {
-    }
-
-    private void OnServerPlayerConnected(NetworkConnection connection)
-    {
-        var client = NetworkManagerExt.LocalPlayers[connection].GetComponent<ClientInstance>();
-        client.NetworkCreatePlayer(_spawnPositions.GetRandomElement());
+        game.Player.SetInput(_input);
     }
 }

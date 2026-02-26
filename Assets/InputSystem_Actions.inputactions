@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "InputSystem_Actions",
     "maps": [
         {
@@ -501,7 +502,7 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "15cef263-9014-4fd5-94d9-4e4a6234a6ef",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -565,6 +566,15 @@
                     "type": "PassThrough",
                     "id": "9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be",
                     "expectedControlType": "Quaternion",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OpenTab",
+                    "type": "Button",
+                    "id": "5f805e1d-ceee-4ac3-8dcd-2d2dd3f3abb7",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -986,6 +996,17 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d7fcfca1-0cbc-4ef9-8a85-79d5f9ff09bf",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenTab",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
