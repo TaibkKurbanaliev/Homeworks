@@ -17,6 +17,7 @@ public class Player : NetworkBehaviour
     [field: SerializeField] public CapsuleCollider Collider { get; private set; }
     [field: SerializeField] public Settings Settings { get; private set; }
     [field: SerializeField] public Weapon Weapon { get; private set; }
+    [field: SerializeField] public HealthComponent Health { get; private set; }
 
     public IInput Input { get; private set; }
 

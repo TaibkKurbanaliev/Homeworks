@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 371356b757965314ea996139699b9434, type: 3}
   m_Name: WeaponConfig
   m_EditorClassIdentifier: 
-  <FireRate>k__BackingField: 2
-  <Damage>k__BackingField: 0
+  <FireRate>k__BackingField: 10
+  <Damage>k__BackingField: 15
   <NumberOfBullets>k__BackingField: 0
