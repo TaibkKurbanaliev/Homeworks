@@ -10,7 +10,6 @@ public class LeaderboardView : MonoBehaviour
 
     private List<PlayerLeaderboardView> _views = new();
 
-
     public void Show()
     {
         gameObject.SetActive(true);

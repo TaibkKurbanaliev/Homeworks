@@ -16,6 +16,7 @@ public class Player : NetworkBehaviour
     [field: SerializeField] public Transform CameraTarget { get; private set; }
     [field: SerializeField] public CapsuleCollider Collider { get; private set; }
     [field: SerializeField] public Settings Settings { get; private set; }
+    [field: SerializeField] public Weapon Weapon { get; private set; }
 
     public IInput Input { get; private set; }
 
@@ -29,8 +30,16 @@ public class Player : NetworkBehaviour
     {
         base.OnStartServer();
 
-        EventBus<ServerPlayerConnectedToGame>.Raise(new ServerPlayerConnectedToGame { PlayerInfo = PlayerInfo, 
+        EventBus<ServerPlayerConnectedToGame>.Raise(new ServerPlayerConnectedToGame { NetID = netId,
+                                                                                      PlayerInfo = PlayerInfo, 
                                                                                       InstanceInfo = _instanceInfo });
+    }
+
+    public override void OnStopServer()
+    {
+        base.OnStopServer();
+
+        EventBus<ServerPlayerDisconnected>.Raise(new ServerPlayerDisconnected { NetID = netId });
     }
 
     public override void OnStartAuthority()

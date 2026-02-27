@@ -10,7 +10,7 @@ public class ClientInstance : NetworkBehaviour
     public void NetworkCreatePlayer(Transform _spawnPoint)
     {
         var player = Instantiate(_player, _spawnPoint.position, _spawnPoint.rotation);
-        NetworkServer.Spawn(player.gameObject, connectionToClient);
         player.Init(GetComponent<InstanceInfo>());
+        NetworkServer.Spawn(player.gameObject, connectionToClient);
     }
 }

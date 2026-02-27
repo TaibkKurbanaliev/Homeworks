@@ -9,4 +9,5 @@ public interface IInput
 
     Vector2 Move();
     Vector2 Look();
+    bool IsFire();
 }

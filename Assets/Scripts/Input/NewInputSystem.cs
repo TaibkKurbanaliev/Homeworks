@@ -37,4 +37,6 @@ public class NewInputSystem : IInput, IDisposable
     {
         Jumped?.Invoke();
     }
+
+    public bool IsFire() => _actions.Player.Attack.IsPressed();
 }

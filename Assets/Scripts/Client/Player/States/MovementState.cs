@@ -37,6 +37,7 @@ public abstract class MovementState : IState
         Rotate();
         Move();
         Gravity();
+        Fire();
     }
 
     private void Move()
@@ -60,5 +61,11 @@ public abstract class MovementState : IState
             Data.Velocity.y += Physics.gravity.y * Time.deltaTime;
         else
             Data.Velocity.y = Physics.gravity.y;
+    }
+
+    private void Fire()
+    {
+        if (Player.Input.IsFire()) 
+            Player.Weapon.Shoot();
     }
 }
