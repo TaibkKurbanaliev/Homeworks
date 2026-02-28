@@ -11,7 +11,7 @@ public class EnterState : GameState
 
     public override void Enter()
     {
-        WaitAllPlayersConnect().Forget();
+        //WaitAllPlayersConnect().Forget();
     }
 
     private async UniTask WaitAllPlayersConnect()

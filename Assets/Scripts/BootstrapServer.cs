@@ -29,6 +29,7 @@ public class BootstrapServer : NetworkBehaviour
     private void OnServerPlayerConnected(NetworkConnection connection)
     {
         var client = NetworkManagerExt.LocalPlayers[connection].GetComponent<ClientInstance>();
-        client.NetworkCreatePlayer(_spawnPositions.GetRandomElement());
+        var createdPlayer = client.NetworkCreatePlayer(_spawnPositions.GetRandomElement());
+        _gameManager.AddPlayer(createdPlayer);
     }
 }

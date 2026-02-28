@@ -18,3 +18,6 @@ MonoBehaviour:
   <AirborneStateConfig>k__BackingField:
     <JumpForce>k__BackingField: 5
     <AirHorizontalSpeed>k__BackingField: 800
+  <DyingStateConfig>k__BackingField:
+    <SpectatorSpeed>k__BackingField: 50
+    <Sensetive>k__BackingField: 5

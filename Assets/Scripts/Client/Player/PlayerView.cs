@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerView : MonoBehaviour
 {
-    private readonly int _animDirXHash = Animator.StringToHash("DirX"); 
-    private readonly int _animDirYHash = Animator.StringToHash("DirY"); 
+    private readonly int _animDirXHash = Animator.StringToHash("DirX");
+    private readonly int _animDirYHash = Animator.StringToHash("DirY");
+    private readonly int _animIsDiedHash = Animator.StringToHash("IsDied");
 
     [SerializeField] private Renderer _renderer;
     [SerializeField] private TMP_Text _name;
@@ -15,7 +16,7 @@ public class PlayerView : MonoBehaviour
 
     [SerializeField] private Animator _fpAnimator;
     [SerializeField] private Animator _tpAnimator;
-    
+
 
     private InstanceInfo _info;
 
@@ -37,19 +38,18 @@ public class PlayerView : MonoBehaviour
 
     public void SetAnimDirection(Vector2 input)
     {
-        _fpAnimator.SetFloat(_animDirXHash, input.x);
-        _fpAnimator.SetFloat(_animDirYHash, input.y);
         _tpAnimator.SetFloat(_animDirXHash, input.x);
         _tpAnimator.SetFloat(_animDirYHash, input.y);
     }
 
-    private void OnColorChanged(Color color)
+    public void SetDeath()
     {
-        _renderer.material.color = color;
+        _tpAnimator.SetBool(_animIsDiedHash, true);
+        _fpView.SetActive(false);
+        _tpView.SetActive(true);
     }
 
-    private void OnNameChanged(string name)
-    {
-        _name.text = name;
-    }
+    public void SetAlive() => _tpAnimator.SetBool(_animIsDiedHash, false);
+    private void OnColorChanged(Color color) => _renderer.material.color = color;
+    private void OnNameChanged(string name) => _name.text = name;
 }

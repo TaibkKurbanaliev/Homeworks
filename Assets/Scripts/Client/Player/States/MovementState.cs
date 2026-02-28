@@ -16,10 +16,12 @@ public abstract class MovementState : IState
     public virtual void Enter()
     {
         Debug.Log($"Enter the {GetType().Name}");
+        Player.Health.Died += OnDied;
     }
 
     public virtual void Exit()
     {
+        Player.Health.Died -= OnDied;
     }
 
     public virtual void FixedUpdate()
@@ -38,6 +40,11 @@ public abstract class MovementState : IState
         Move();
         Gravity();
         Fire();
+    }
+
+    private void OnDied()
+    {
+        StateSwitcher.SwitchState<DyingState>();
     }
 
     private void Move()
