@@ -30,6 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6566374438952740693}
   - {fileID: 6924766771858521131}
   - {fileID: 3699619330591963802}
   m_Father: {fileID: 8400613413448847598}
@@ -453,6 +454,7 @@ GameObject:
   - component: {fileID: 1582269004248427638}
   - component: {fileID: -3831598713068030870}
   - component: {fileID: 6460545347322913625}
+  - component: {fileID: 733383625041104316}
   - component: {fileID: 8775456220688318763}
   - component: {fileID: 2992548391545894656}
   - component: {fileID: 8982962850802222049}
@@ -482,7 +484,6 @@ Transform:
   - {fileID: 837348396525723380}
   - {fileID: 3178150645558123370}
   - {fileID: 7878785183741122161}
-  - {fileID: 6566374438952740693}
   - {fileID: 7143077861377403998}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -511,6 +512,7 @@ MonoBehaviour:
   <Settings>k__BackingField: {fileID: 11400000, guid: 11deee192b85d1f48a40213102e1bc1f, type: 2}
   <Weapon>k__BackingField: {fileID: 3519048908818541390}
   <Health>k__BackingField: {fileID: 6460545347322913625}
+  <ItemsController>k__BackingField: {fileID: 733383625041104316}
 --- !u!114 &1582269004248427638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -525,6 +527,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderer: {fileID: 7753855370150177727}
   _name: {fileID: 4772619069142735465}
+  _settings: {fileID: 11400000, guid: 11deee192b85d1f48a40213102e1bc1f, type: 2}
+  _yConstraint:
+    _min: -70
+    _max: 88
   _fpView: {fileID: 1976405454018869288}
   _tpView: {fileID: 4544642009262727401}
   _fpAnimator: {fileID: 6737093923846833294}
@@ -560,6 +566,24 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.05
   _maxHP: 100
+--- !u!114 &733383625041104316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870626148676687183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897b81d4447ea1a4ebb5e69f09054e0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _pickupItemLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!136 &8775456220688318763
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -577,7 +601,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.23
   m_Height: 1.75
@@ -1066,11 +1090,11 @@ Transform:
   m_GameObject: {fileID: 1632354658907586537}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.614, z: 0.09}
+  m_LocalPosition: {x: 0, y: 1.614, z: 0.09000015}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8400613413448847598}
+  m_Father: {fileID: 837348396525723380}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1705930304347811507
 GameObject:

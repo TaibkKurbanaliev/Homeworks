@@ -3,8 +3,16 @@ using UnityEngine;
 
 public abstract class PickupItem : NetworkBehaviour
 {
-    public void Pickup()
+    [SerializeField] private Collider _trigger;
+    [SerializeField] private Animator _animator;
+
+    [ClientRpc]
+    public void RpcPickup()
     {
-        NetworkServer.UnSpawn(gameObject);
+        _trigger.enabled = false;
+        _animator.enabled = false;
+        gameObject.SetActive(false);
     }
+
+    public abstract void Use(Player user);
 }

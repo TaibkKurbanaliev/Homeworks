@@ -23,6 +23,7 @@ public class Player : NetworkBehaviour
     [field: SerializeField] public Settings Settings { get; private set; }
     [field: SerializeField] public Weapon Weapon { get; private set; }
     [field: SerializeField] public HealthComponent Health { get; private set; }
+    [field: SerializeField] public ItemsController ItemsController { get; private set; }
 
     public IInput Input { get; private set; }
 
@@ -135,6 +136,7 @@ public class Player : NetworkBehaviour
     public void SetInput(IInput input)
     {
         Input = input;
+        ItemsController.Init(input);
     }
 
     private void OnDied()

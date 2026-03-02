@@ -60,6 +60,8 @@ public abstract class MovementState : IState
     private void Rotate()
     {
         Player.transform.Rotate(Player.transform.up, Data.LookInput.x * Player.Settings.MouseSensetive * Time.deltaTime);
+        Player.PlayerView.Rotate(Data.LookInput.y);
+
     }
 
     private void Gravity()

@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Mirror;
 using System;
 using UniExtension;
 using Unity.Services.Analytics;
@@ -16,6 +17,7 @@ public class PlayState : GameState
     public override void Enter()
     {
         base.Enter();
+        StartRespawnItems().Forget();
         GameManager.ServerPlayerAdded += OnServerPlayerAdded;
         
         foreach (var player in GameManager.Players)
@@ -49,5 +51,16 @@ public class PlayState : GameState
     {
         await UniTask.WaitForSeconds(_cfg.RespawnDelay);
         player.Respawn(GameManager.SpawnPoints.GetRandomElement().position);
+    }
+
+    private async UniTask StartRespawnItems()
+    {
+        while (true)
+        {
+            var itemType = Enum.GetNames(typeof(ItemType)).GetRandomElement();
+            var item = GameManager.ItemFactory.Get(Enum.Parse<ItemType>(itemType));
+            NetworkServer.Spawn(item.gameObject);
+            await UniTask.WaitForSeconds(_cfg.ItemsRespawnDelay);
+        }
     }
 }

@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6af326d17602241ab30184f665e86a, type: 3}
+  m_Name: ItemFactory
+  m_EditorClassIdentifier: 
+  _healPrefab: {fileID: -8596103610694497967, guid: 52671eba5b3b8a140b878d58a6c17083, type: 3}
+  _granadePrefab: {fileID: -4581546196214119246, guid: cbe52a9d0f42a414990de94f8afb99cd, type: 3}

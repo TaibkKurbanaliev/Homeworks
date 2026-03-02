@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
   <WalkingStateConfig>k__BackingField:
-    Speed: 1500
+    Speed: 2500
     Drag: 20
   <AirborneStateConfig>k__BackingField:
     <JumpForce>k__BackingField: 5

@@ -39,10 +39,18 @@ public class HealthComponent : NetworkBehaviour
         if (_currentHP <= 0)
             return;
 
+        Debug.Log($"Taked {damage} dmg");
+
         _currentHP -= damage;
 
         if (_currentHP <= 0)
             ServerDied?.Invoke();
+    }
+
+    [Server]
+    public void Heal(float amount)
+    {
+        _currentHP = Mathf.Clamp(_currentHP + amount, 0, _maxHP);
     }
 
     [ClientRpc]
