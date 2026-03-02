@@ -2,7 +2,6 @@ using Mirror;
 using System;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(PlayerView), typeof(CharacterController), typeof(CapsuleCollider))]
 public class Player : NetworkBehaviour
@@ -26,6 +25,7 @@ public class Player : NetworkBehaviour
     [field: SerializeField] public ItemsController ItemsController { get; private set; }
 
     public IInput Input { get; private set; }
+    public InstanceInfo Info => _instanceInfo;
 
     private void Awake()
     {
@@ -43,30 +43,6 @@ public class Player : NetworkBehaviour
     public void Init(InstanceInfo info)
     {
         _instanceInfo = info;
-    }
-
-    [Server]
-    public void Respawn(Vector3 position)
-    {
-        var conn = NetworkManagerExt.LocalPlayers.FirstOrDefault(player =>
-                                                          player.Value.GetComponent<ClientInstance>().CurrentPlayer == this).Key;
-        if (conn != null)
-        {
-            TargetRpcRespawn(conn, position);
-            Health.Reset();
-        }
-    }
-
-    [TargetRpc]
-    private void TargetRpcRespawn(NetworkConnection conn, Vector3 position)
-    {
-        if (!isOwned)
-            return;
-
-        _stateMachine.SwitchState<WalkingState>();
-        transform.position = position;
-        PlayerView.SetFPView();
-        CameraGhostTarget.transform.localPosition = Vector3.zero;
     }
 
     public override void OnStartServer()
@@ -133,10 +109,37 @@ public class Player : NetworkBehaviour
         _stateMachine.FixedUpdate();
     }
 
+    [Server]
+    public void Respawn(Vector3 position)
+    {
+        var conn = NetworkManagerExt.LocalPlayers.FirstOrDefault(player =>
+                                                          player.Value.GetComponent<ClientInstance>().CurrentPlayer == this).Key;
+        if (conn != null)
+        {
+            TargetRpcRespawn(conn, position);
+            Health.Reset();
+        }
+    }
+
+    [TargetRpc]
+    public void TargetRpcDisableInput(NetworkConnection conn)
+    {
+        Input.Dispose();
+    }
+
     public void SetInput(IInput input)
     {
         Input = input;
         ItemsController.Init(input);
+    }
+
+    [TargetRpc]
+    private void TargetRpcRespawn(NetworkConnection conn, Vector3 position)
+    {
+        _stateMachine.SwitchState<WalkingState>();
+        transform.position = position;
+        PlayerView.SetFPView();
+        CameraGhostTarget.transform.localPosition = Vector3.zero;
     }
 
     private void OnDied()

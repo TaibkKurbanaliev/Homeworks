@@ -17,3 +17,4 @@ MonoBehaviour:
   <PlayStateConfig>k__BackingField:
     <RespawnDelay>k__BackingField: 4
     <ItemsRespawnDelay>k__BackingField: 25
+    <GameTime>k__BackingField: 10

@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Mirror;
 using System;
+using System.Threading;
 using UniExtension;
 using Unity.Services.Analytics;
 using UnityEngine;
@@ -8,6 +9,9 @@ using UnityEngine;
 public class PlayState : GameState
 {
     private PlayStateConfig _cfg;
+    private int _currentGameTime;
+
+    private CancellationTokenSource _cts;
 
     public PlayState(GameManager gameManager, IStateSwitcher stateSwitcher, PlayStateConfig cfg) : base(gameManager, stateSwitcher)
     {
@@ -17,7 +21,13 @@ public class PlayState : GameState
     public override void Enter()
     {
         base.Enter();
+
+        _cts = new CancellationTokenSource();
+        _currentGameTime = _cfg.GameTime;
+
         StartRespawnItems().Forget();
+        StartTimer().Forget();
+
         GameManager.ServerPlayerAdded += OnServerPlayerAdded;
         
         foreach (var player in GameManager.Players)
@@ -29,6 +39,7 @@ public class PlayState : GameState
     public override void Exit()
     {
         base.Exit();
+        _cts.Cancel();
         GameManager.ServerPlayerAdded -= OnServerPlayerAdded;
 
         foreach (var player in GameManager.Players)
@@ -49,18 +60,29 @@ public class PlayState : GameState
 
     private async UniTask StartRespawn(Player player)
     {
-        await UniTask.WaitForSeconds(_cfg.RespawnDelay);
+        await UniTask.WaitForSeconds(_cfg.RespawnDelay, cancellationToken: _cts.Token);
         player.Respawn(GameManager.SpawnPoints.GetRandomElement().position);
     }
 
     private async UniTask StartRespawnItems()
     {
-        while (true)
+        while (!_cts.IsCancellationRequested)
         {
             var itemType = Enum.GetNames(typeof(ItemType)).GetRandomElement();
             var item = GameManager.ItemFactory.Get(Enum.Parse<ItemType>(itemType));
             NetworkServer.Spawn(item.gameObject);
-            await UniTask.WaitForSeconds(_cfg.ItemsRespawnDelay);
+            await UniTask.WaitForSeconds(_cfg.ItemsRespawnDelay, cancellationToken: _cts.Token);
         }
+    }
+
+    private async UniTask StartTimer()
+    {
+        while (_currentGameTime > 0)
+        {
+            GameManager.Timer.SetTime(--_currentGameTime);
+            await UniTask.WaitForSeconds(1f, cancellationToken: _cts.Token);
+        }
+
+        StateSwitcher.SwitchState<EndGameState>();
     }
 }

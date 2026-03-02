@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public interface IInput
+public interface IInput : IDisposable
 {
     event Action Jumped;
     event Action TabOpenned;

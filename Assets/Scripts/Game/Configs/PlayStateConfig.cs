@@ -6,4 +6,5 @@ public class PlayStateConfig
 {
     [field: SerializeField] public float RespawnDelay { get; private set; }
     [field: SerializeField] public float ItemsRespawnDelay { get; private set; }
+    [field: SerializeField] public int GameTime { get; private set; }
 }
