@@ -12,7 +12,6 @@ public class Timer : NetworkBehaviour
     [Server]
     public void SetTime(int timeInSeconds)
     {
-        Debug.Log("Timer");
         _timeInSeconds = timeInSeconds;
     }
 

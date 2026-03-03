@@ -31,6 +31,7 @@ public class Player : NetworkBehaviour
     {
         Health.Died += OnDied;
         Health.ServerDied += OnServerDied;
+        Weapon.Init(this);
     }
 
     private void OnDestroy()

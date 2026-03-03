@@ -34,17 +34,20 @@ public class HealthComponent : NetworkBehaviour
     }
 
     [Server]
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, Player attacker)
     {
         if (_currentHP <= 0)
             return;
 
-        Debug.Log($"Taked {damage} dmg");
-
         _currentHP -= damage;
 
         if (_currentHP <= 0)
+        {
             ServerDied?.Invoke();
+
+            if (attacker != null && attacker.Health != this)
+                EventBus<PlayerKilledEvent>.Raise(new PlayerKilledEvent { Killer = attacker});
+        }
     }
 
     [Server]

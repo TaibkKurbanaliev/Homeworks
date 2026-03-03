@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Mirror;
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,10 +15,15 @@ public class Weapon : NetworkBehaviour
     [SyncVar] private bool _canFire = true;
 
     private AudioSource _audioSource;
+    private Player _owner;
 
     private int _maxBullerts;
     private int _currentBullets;
 
+    public void Init(Player player)
+    {
+        _owner = player;
+    }
 
     private void Awake()
     {
@@ -35,7 +41,6 @@ public class Weapon : NetworkBehaviour
         var camera = Camera.main;
         _fireVFX.Play();
         _audioSource.Play();
-        Debug.DrawLine(camera.transform.position, camera.transform.forward * 100, Color.red);
         CmdShoot(camera.transform.position + camera.transform.forward * 0.5f, camera.transform.forward);
     }
 
@@ -56,7 +61,7 @@ public class Weapon : NetworkBehaviour
             if ((_playerMask.value & (1 << hitInfo.collider.gameObject.layer)) != 0)
             {
                 var enemy = hitInfo.transform.GetComponent<HealthComponent>();
-                enemy.TakeDamage(_config.Damage);
+                enemy.TakeDamage(_config.Damage, _owner);
             }
         }
     }

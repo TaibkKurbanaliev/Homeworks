@@ -13,7 +13,7 @@ public class Grenade : PickupItem
     [Server]
     public override void Use(Player player)
     {
-        StartDestroyTimer().Forget();
+        StartDestroyTimer(player).Forget();
         transform.position = player.transform.position + Vector3.up * (player.CharacterController.height / 2) + (transform.forward * (player.CharacterController.radius + 0.3f));
 
         _rigidbody.useGravity = true;
@@ -22,7 +22,7 @@ public class Grenade : PickupItem
         RpcThrow();
     }
 
-    private async UniTask StartDestroyTimer()
+    private async UniTask StartDestroyTimer(Player player)
     {
         await UniTask.WaitForSeconds(_cfg.TimeToExplosion);
         var overlaps = Physics.OverlapSphere(transform.position, _cfg.ExplosionRadius, _target);
@@ -31,7 +31,7 @@ public class Grenade : PickupItem
         {
             if (collision.TryGetComponent(out HealthComponent target))
             {
-                target.TakeDamage(_cfg.Damage);
+                target.TakeDamage(_cfg.Damage, player);
             }
         }
 

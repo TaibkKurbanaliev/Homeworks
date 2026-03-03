@@ -8,14 +8,21 @@ using UnityEngine;
 
 public class PlayState : GameState
 {
-    private PlayStateConfig _cfg;
-    private int _currentGameTime;
-
     private CancellationTokenSource _cts;
+    private PlayStateConfig _cfg;
+    private EventBinding<PlayerKilledEvent> _playerKilledEvent;
+
+    private int _currentGameTime;
 
     public PlayState(GameManager gameManager, IStateSwitcher stateSwitcher, PlayStateConfig cfg) : base(gameManager, stateSwitcher)
     {
         _cfg = cfg;
+        _playerKilledEvent = new EventBinding<PlayerKilledEvent>(OnPlayerKilled);
+    }
+
+    private void OnPlayerKilled(PlayerKilledEvent @event)
+    {
+        @event.Killer.PlayerInfo.AddKill();
     }
 
     public override void Enter()
@@ -29,6 +36,7 @@ public class PlayState : GameState
         StartTimer().Forget();
 
         GameManager.ServerPlayerAdded += OnServerPlayerAdded;
+        EventBus<PlayerKilledEvent>.Register(_playerKilledEvent);
         
         foreach (var player in GameManager.Players)
         {
@@ -41,6 +49,7 @@ public class PlayState : GameState
         base.Exit();
         _cts.Cancel();
         GameManager.ServerPlayerAdded -= OnServerPlayerAdded;
+        EventBus<PlayerKilledEvent>.Deregister(_playerKilledEvent);
 
         foreach (var player in GameManager.Players)
         {
@@ -55,6 +64,7 @@ public class PlayState : GameState
 
     private void OnServerDied(Player player)
     {
+        player.PlayerInfo.AddDeath();
         StartRespawn(player).Forget();
     }
 
