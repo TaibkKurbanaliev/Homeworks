@@ -34,7 +34,7 @@ public class HealthComponent : NetworkBehaviour
     }
 
     [Server]
-    public void TakeDamage(float damage, Player attacker)
+    public void TakeDamage(float damage, Player attacker = default)
     {
         if (_currentHP <= 0)
             return;

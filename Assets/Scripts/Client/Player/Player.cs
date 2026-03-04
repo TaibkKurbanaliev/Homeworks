@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerView), typeof(CharacterController), typeof(CapsuleCollider))]
+[RequireComponent(typeof(PlayerView), typeof(CharacterController))]
 public class Player : NetworkBehaviour
 {
     public event Action<Player> ServerDied;
@@ -18,12 +18,12 @@ public class Player : NetworkBehaviour
     [field: SerializeField] public CharacterController CharacterController { get; private set; }
     [field: SerializeField] public Transform CameraTarget { get; private set; }
     [field: SerializeField] public Transform CameraGhostTarget { get; private set; }
-    [field: SerializeField] public CapsuleCollider Collider { get; private set; }
     [field: SerializeField] public Settings Settings { get; private set; }
     [field: SerializeField] public Weapon Weapon { get; private set; }
     [field: SerializeField] public HealthComponent Health { get; private set; }
     [field: SerializeField] public ItemsController ItemsController { get; private set; }
-
+    [field: SerializeField] public StatMediator StatMediator { get; private set; }
+    
     public IInput Input { get; private set; }
     public InstanceInfo Info => _instanceInfo;
 
@@ -66,6 +66,7 @@ public class Player : NetworkBehaviour
     {
         base.OnStartAuthority();
 
+        _config.Init(StatMediator);
         var data = new StatesData();
 
         CharacterController.enabled = true;
@@ -89,9 +90,6 @@ public class Player : NetworkBehaviour
 
         if (CharacterController == null)
             CharacterController = GetComponent<CharacterController>();
-
-        if (Collider == null)
-            Collider = GetComponent<CapsuleCollider>();
     }
 
     private void Update()

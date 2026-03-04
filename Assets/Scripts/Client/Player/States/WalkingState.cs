@@ -14,21 +14,21 @@ public class WalkingState : MovementState
     public override void Enter()
     {
         base.Enter();
-
-        Data.HorizontalSpeed = _cfg.Speed;
         Player.Input.Jumped += OnJumpPressed;
     }
+
 
     public override void Exit()
     {
         base.Exit();
-
         Player.Input.Jumped -= OnJumpPressed;
     }
 
     public override void Update()
     {
         base.Update();
+
+        Data.HorizontalSpeed = _cfg.Speed;
 
         if (!Player.CharacterController.isGrounded)
             StateSwitcher.SwitchState<FallingState>();

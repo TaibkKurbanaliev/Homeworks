@@ -451,6 +451,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8400613413448847598}
   - component: {fileID: 5431787463270579012}
+  - component: {fileID: 5876067426199125736}
   - component: {fileID: 1582269004248427638}
   - component: {fileID: -3831598713068030870}
   - component: {fileID: 6460545347322913625}
@@ -508,11 +509,26 @@ MonoBehaviour:
   <CharacterController>k__BackingField: {fileID: 2992548391545894656}
   <CameraTarget>k__BackingField: {fileID: 6566374438952740693}
   <CameraGhostTarget>k__BackingField: {fileID: 7143077861377403998}
-  <Collider>k__BackingField: {fileID: 8775456220688318763}
   <Settings>k__BackingField: {fileID: 11400000, guid: 11deee192b85d1f48a40213102e1bc1f, type: 2}
   <Weapon>k__BackingField: {fileID: 3519048908818541390}
   <Health>k__BackingField: {fileID: 6460545347322913625}
   <ItemsController>k__BackingField: {fileID: 733383625041104316}
+  <StatMediator>k__BackingField: {fileID: 5876067426199125736}
+--- !u!114 &5876067426199125736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870626148676687183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b4d93ba47b74d4b98958351c479d1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!114 &1582269004248427638
 MonoBehaviour:
   m_ObjectHideFlags: 0
