@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class NetworkManagerExt : NetworkManager
 {
+    [SerializeField] private int _minimumPlayers = 2;
     public static readonly Dictionary<NetworkConnection, NetworkIdentity> LocalPlayers = new();
     public static new NetworkManagerExt singleton => (NetworkManagerExt)NetworkManager.singleton;
 
@@ -30,7 +31,7 @@ public class NetworkManagerExt : NetworkManager
         LocalPlayers[conn] = player.GetComponent<NetworkIdentity>();
         instanceInfo.Init(newPlayerInfo);
 
-        if (LocalPlayers.Count == 1)
+        if (LocalPlayers.Count == _minimumPlayers)
             player.GetComponent<InstanceInfo>().SetLeader();
 
         ServerPlayerConnected?.Invoke(conn);
