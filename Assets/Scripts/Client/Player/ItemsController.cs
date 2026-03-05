@@ -21,7 +21,7 @@ public class ItemsController : NetworkBehaviour
     public void Init(IInput input)
     {
         _input = input;
-        _input.GranadeThrowed += OnGranadeThrowed;
+        _input.GrenadeThrowed += OnGranadeThrowed;
         _input.Healed += OnHealed;  
     }
 
@@ -39,7 +39,7 @@ public class ItemsController : NetworkBehaviour
         _heals.OnRemove -= OnHealRemoved;
         _grenades.OnAdd -= OnGranadeAdd;
         _grenades.OnRemove -= OnGranadeRemoved;
-        _input.GranadeThrowed -= OnGranadeThrowed;
+        _input.GrenadeThrowed -= OnGranadeThrowed;
         _input.Healed -= OnHealed;
     }
 

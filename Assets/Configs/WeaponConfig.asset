@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FireRate>k__BackingField: 10
   <Damage>k__BackingField: 15
-  <NumberOfBullets>k__BackingField: 0
+  <ReloadTime>k__BackingField: 1
+  <NumberOfBullets>k__BackingField: 30

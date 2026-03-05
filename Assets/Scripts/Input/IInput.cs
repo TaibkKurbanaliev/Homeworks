@@ -7,7 +7,8 @@ public interface IInput : IDisposable
     event Action TabOpenned;
     event Action TabClosed;
     event Action Healed;
-    event Action GranadeThrowed;
+    event Action GrenadeThrowed;
+    event Action ReloadPressed;
 
     Vector2 Move();
     Vector2 Look();

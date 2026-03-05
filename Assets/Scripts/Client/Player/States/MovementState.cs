@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class MovementState : IState
@@ -17,11 +18,13 @@ public abstract class MovementState : IState
     {
         Debug.Log($"Enter the {GetType().Name}");
         Player.Health.Died += OnDied;
+        Player.Input.ReloadPressed += OnReloadPressed;
     }
 
     public virtual void Exit()
     {
         Player.Health.Died -= OnDied;
+        Player.Input.ReloadPressed -= OnReloadPressed;
     }
 
     public virtual void FixedUpdate()
@@ -76,5 +79,10 @@ public abstract class MovementState : IState
     {
         if (Player.Input.IsFire()) 
             Player.Weapon.Shoot();
+    }
+
+    private void OnReloadPressed()
+    {
+        Player.Weapon.Reload();
     }
 }

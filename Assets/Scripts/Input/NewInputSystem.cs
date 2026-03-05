@@ -8,7 +8,8 @@ public class NewInputSystem : IInput, IDisposable
     public event Action TabOpenned;
     public event Action TabClosed;
     public event Action Healed;
-    public event Action GranadeThrowed;
+    public event Action GrenadeThrowed;
+    public event Action ReloadPressed;
 
     private InputSystem_Actions _actions;
 
@@ -19,16 +20,15 @@ public class NewInputSystem : IInput, IDisposable
         _actions.Player.Heal.started += OnHealStarted;
         _actions.Player.Jump.started += OnJumpStarted;
         _actions.Player.ThrowGranade.started += OnThrowGranadeStarted;
+        _actions.Player.Reload.started += OnReloadStarted;
         _actions.UI.OpenTab.started += OnTabOpenned;
         _actions.UI.OpenTab.canceled += OnTabClosed;
     }
 
-    private void OnThrowGranadeStarted(InputAction.CallbackContext context) => GranadeThrowed?.Invoke();
-
+    private void OnReloadStarted(InputAction.CallbackContext context) => ReloadPressed?.Invoke();
+    private void OnThrowGranadeStarted(InputAction.CallbackContext context) => GrenadeThrowed?.Invoke();
     private void OnTabClosed(InputAction.CallbackContext context) => TabClosed?.Invoke();
-
     private void OnTabOpenned(InputAction.CallbackContext context) => TabOpenned?.Invoke();
-
     private void OnJumpStarted(InputAction.CallbackContext context) => Jumped?.Invoke();
     private void OnHealStarted(InputAction.CallbackContext context) => Healed?.Invoke();
     public Vector2 Look() => _actions.Player.Look.ReadValue<Vector2>();

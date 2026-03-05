@@ -12,13 +12,20 @@ public class Weapon : NetworkBehaviour
     [SerializeField] private BulletTrail _bullet;
     [SerializeField] private LayerMask _playerMask;
     [SerializeField] private Transform _muzzlePoint;
+    [SyncVar(hook = nameof(OnBulletsChanged))] private int _currentBullets;
     [SyncVar] private bool _canFire = true;
 
     private AudioSource _audioSource;
     private Player _owner;
 
     private int _maxBullerts;
-    private int _currentBullets;
+
+    public override void OnStartAuthority()
+    {
+        base.OnStartAuthority();
+
+        EventBus<BulletsChangedEvent>.Raise(new BulletsChangedEvent { Count = _currentBullets });
+    }
 
     public void Init(Player player)
     {
@@ -30,6 +37,12 @@ public class Weapon : NetworkBehaviour
         _maxBullerts = _config.NumberOfBullets;
         _currentBullets = _maxBullerts;
         _audioSource = GetComponent<AudioSource>();
+    }
+
+    [Client]
+    public void Reload()
+    {
+        CmdReload();
     }
 
     [Client]
@@ -50,9 +63,11 @@ public class Weapon : NetworkBehaviour
         if (!_canFire)
             return;
 
+        _currentBullets--;
+        _canFire = false;
+
         var ray = new Ray(startPos, direction);
         StartCooldown().Forget();
-        _canFire = false;
 
         RpcShowTrace();
 
@@ -64,6 +79,12 @@ public class Weapon : NetworkBehaviour
                 enemy.TakeDamage(_config.Damage, _owner);
             }
         }
+    }
+
+    [Command]
+    private void CmdReload()
+    {
+        StartReload().Forget();
     }
 
     [ClientRpc]
@@ -78,6 +99,29 @@ public class Weapon : NetworkBehaviour
     private async UniTask StartCooldown()
     {
         await UniTask.WaitForSeconds(1 / _config.FireRate);
+
+        if (_currentBullets == 0)
+            return;
+
         _canFire = true;
+    }
+
+    private async UniTask StartReload()
+    {
+        _canFire = false;
+
+        await UniTask.WaitForSeconds(_config.ReloadTime);
+
+        _currentBullets = _maxBullerts;
+
+        _canFire = true;
+    }
+
+    private void OnBulletsChanged(int prev, int next)
+    {
+        if (!isOwned)
+            return;
+
+        EventBus<BulletsChangedEvent>.Raise(new BulletsChangedEvent { Count = _currentBullets });
     }
 }
