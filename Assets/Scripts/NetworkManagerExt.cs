@@ -31,7 +31,7 @@ public class NetworkManagerExt : NetworkManager
         LocalPlayers[conn] = player.GetComponent<NetworkIdentity>();
         instanceInfo.Init(newPlayerInfo);
 
-        if (LocalPlayers.Count == _minimumPlayers)
+        if (LocalPlayers.Count == 1)
             player.GetComponent<InstanceInfo>().SetLeader();
 
         ServerPlayerConnected?.Invoke(conn);
