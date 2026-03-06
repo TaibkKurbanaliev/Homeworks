@@ -54,9 +54,9 @@ public class PlayerView : MonoBehaviour
 
     public void Rotate(float y)
     {
-        _pitch -= y * _settings.MouseSensetive * Time.unscaledDeltaTime;
+        _pitch -= y * _settings.MouseSensetive;
         _pitch = Mathf.Clamp(_pitch, _yConstraint.min, _yConstraint.max);
-        transform.localEulerAngles = new Vector3(_pitch, transform.localEulerAngles.y, 0f);
+        _fpView.transform.localEulerAngles = new Vector3(_pitch, _fpView.transform.localEulerAngles.y, 0f);
     }
 
     public void SetAlive() => _tpAnimator.SetBool(_animIsDiedHash, false);

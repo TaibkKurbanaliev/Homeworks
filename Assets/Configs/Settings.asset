@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ac9180ef24f0e4d8258036f877da3f, type: 3}
   m_Name: Settings
   m_EditorClassIdentifier: 
-  <MouseSensetive>k__BackingField: 3
+  <MouseSensetive>k__BackingField: 0.1
   <IsSoundOn>k__BackingField: 1
   <Volume>k__BackingField: 0

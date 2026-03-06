@@ -13,12 +13,12 @@ public class Weapon : NetworkBehaviour
     [SerializeField] private LayerMask _playerMask;
     [SerializeField] private Transform _muzzlePoint;
     [SyncVar(hook = nameof(OnBulletsChanged))] private int _currentBullets;
+    [SyncVar] private int _maxBullets;
     [SyncVar] private bool _canFire = true;
 
     private AudioSource _audioSource;
     private Player _owner;
 
-    private int _maxBullerts;
 
     public override void OnStartAuthority()
     {
@@ -34,8 +34,7 @@ public class Weapon : NetworkBehaviour
 
     private void Awake()
     {
-        _maxBullerts = _config.NumberOfBullets;
-        _currentBullets = _maxBullerts;
+        CmdInitBullets();
         _audioSource = GetComponent<AudioSource>();
     }
 
@@ -60,7 +59,7 @@ public class Weapon : NetworkBehaviour
     [Command]
     private void CmdShoot(Vector3 startPos, Vector3 direction)
     {
-        if (!_canFire)
+        if (!_canFire || _currentBullets <= 0)
             return;
 
         _currentBullets--;
@@ -71,12 +70,22 @@ public class Weapon : NetworkBehaviour
 
         RpcShowTrace();
 
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, float.MaxValue))
+        var hits = Physics.RaycastAll(ray, float.MaxValue);
+
+        foreach (var hit in hits)
         {
-            if ((_playerMask.value & (1 << hitInfo.collider.gameObject.layer)) != 0)
+            if (hit.transform.root == _owner.transform)
+                continue;
+
+            if ((_playerMask.value & (1 << hit.collider.gameObject.layer)) != 0)
             {
-                var enemy = hitInfo.transform.GetComponent<HealthComponent>();
-                enemy.TakeDamage(_config.Damage, _owner);
+                var enemy = hit.transform.GetComponent<HealthComponent>();
+
+                if (enemy != null)
+                {
+                    enemy.TakeDamage(_config.Damage, _owner);
+                    break;
+                }
             }
         }
     }
@@ -85,6 +94,13 @@ public class Weapon : NetworkBehaviour
     private void CmdReload()
     {
         StartReload().Forget();
+    }
+
+    [Command]
+    private void CmdInitBullets()
+    {
+        _maxBullets = _config.NumberOfBullets;
+        _currentBullets = _maxBullets;
     }
 
     [ClientRpc]
@@ -112,7 +128,7 @@ public class Weapon : NetworkBehaviour
 
         await UniTask.WaitForSeconds(_config.ReloadTime);
 
-        _currentBullets = _maxBullerts;
+        _currentBullets = _maxBullets;
 
         _canFire = true;
     }

@@ -69,6 +69,9 @@ public class Player : NetworkBehaviour
         _config.Init(StatMediator);
         var data = new StatesData();
 
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         CharacterController.enabled = true;
         PlayerView.SetFPView();
 
@@ -80,7 +83,6 @@ public class Player : NetworkBehaviour
         _stateMachine.AddState(new WalkingState(this, _stateMachine, data, _config.WalkingStateConfig));
         _stateMachine.AddState(new DyingState(this, _stateMachine, _config.DyingStateConfig));
         _stateMachine.SwitchState<WalkingState>();
-
     }
 
     protected override void OnValidate()

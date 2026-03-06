@@ -53,7 +53,7 @@ public abstract class MovementState : IState
     private void Move()
     {
         var moveDir = Player.transform.forward * Data.MoveInput.y + Player.transform.right * Data.MoveInput.x;
-        var newVelocity = moveDir * Data.HorizontalSpeed * Time.deltaTime;
+        var newVelocity = moveDir * Data.HorizontalSpeed;
         Data.Velocity.x = newVelocity.x;
         Data.Velocity.z = newVelocity.z;
         Player.CharacterController.Move(Data.Velocity * Time.deltaTime);
@@ -62,9 +62,8 @@ public abstract class MovementState : IState
 
     private void Rotate()
     {
-        Player.transform.Rotate(Player.transform.up, Data.LookInput.x * Player.Settings.MouseSensetive * Time.deltaTime);
+        Player.transform.Rotate(Player.transform.up, Data.LookInput.x * Player.Settings.MouseSensetive);
         Player.PlayerView.Rotate(Data.LookInput.y);
-
     }
 
     private void Gravity()

@@ -26,6 +26,12 @@ public class MainMenuManager : MonoBehaviour
         _backButton.onClick.AddListener(OnBackButtonPressed);
     }
 
+    private void OnEnable()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     private void OnDestroy()
     {
         

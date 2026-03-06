@@ -1208,7 +1208,7 @@ MonoBehaviour:
   _container: {fileID: 755612110}
   _startGameButton: {fileID: 1701837248}
   _backButton: {fileID: 615020126}
-  _minimumPlayerToStart: 2
+  _minimumPlayerToStart: 1
   _sceneLoader: {fileID: 0}
 --- !u!114 &444051496
 MonoBehaviour:

@@ -18,6 +18,7 @@ public class DyingState : IState
     {
         _player.PlayerView.SetDeath();
         _player.CharacterController.enabled = false;
+        _player.Weapon.Reload();
     }
 
     public void Exit()
